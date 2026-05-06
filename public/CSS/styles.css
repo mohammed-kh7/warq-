@@ -1,0 +1,3408 @@
+/* ========== ألوان المشروع (غيّر القيم هنا فقط لتجربة لوحات أخرى) ========== */
+:root {
+    --app-primary: #255a57;
+    --app-primary-hover: #1e4845;
+    --app-primary-soft: #e8f2f1;
+    --app-primary-soft-strong: #d0e4e2;
+    --app-navbar-deep: #1a3836;
+    --app-surface: #f4f7f6;
+    --app-surface-elevated: #fafcfb;
+    --app-ink: #1c2c30;
+    --app-muted: #5a6d72;
+    --app-primary-alpha-10: rgba(37, 90, 87, 0.1);
+    --app-primary-alpha-50: rgba(37, 90, 87, 0.45);
+    --app-radius: 12px;
+    --app-shadow: 0 4px 18px rgba(24, 46, 44, 0.1);
+}
+
+.app-navbar {
+    background: linear-gradient(135deg, var(--app-primary) 0%, var(--app-navbar-deep) 100%);
+    box-shadow: var(--app-shadow);
+}
+
+.text-app-primary {
+    color: var(--app-primary) !important;
+}
+
+.hero-main-title {
+    color: var(--app-primary);
+    font-size: clamp(1.85rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.btn-primary {
+    background-color: var(--app-primary) !important;
+    border-color: var(--app-primary-hover) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--app-primary-hover) !important;
+    border-color: var(--app-navbar-deep) !important;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Cairo", "Tajawal", "Segoe UI", Arial, sans-serif;
+    text-align: right;
+    direction: rtl;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--app-surface);
+    color: var(--app-ink);
+}
+.main-content {
+    flex: 1;
+}
+.navbar {
+    padding: 10px 20px;
+}
+.navbar-brand img {
+    max-height: 63px;
+    width: auto;
+}
+.navbar-brand-text {
+    font-size: 1.65rem;
+    font-weight: 700;
+    margin-right: 10px;
+    letter-spacing: -0.02em;
+}
+.auth-register-box {
+    min-height: 77vh;
+}
+.navbar-brand a {
+    text-decoration: none;
+    color: white;
+}
+.nav-link {
+    transition: background-color 0.3s ease;
+}
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+.navbar-toggler-icon {
+    background-color: #fff;
+}
+.navbar-nav .nav-link {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white !important;
+    margin-right: 10px;
+}
+/* المستطيل الذي يحتوي على الصورة والفورم */
+.login-box {
+    width: 60%;
+    height: 60vh;
+    border-radius: 20px;
+    display: flex;
+    background: var(--app-primary-alpha-10);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+}
+/* الجزء المرئي بجانب نموذج الدخول / التسجيل */
+.login-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: url("../images/auth-login-hero.svg") no-repeat center center;
+    background-size: cover;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    z-index: 1;
+}
+
+.login-box--signup::before {
+    background-image: url("../images/auth-register-hero.svg");
+}
+/* الجزء الأيمن مع الفورم */
+.right-side {
+    position: relative;
+    z-index: 2;
+    background: transparent;
+    flex: 1;
+    padding: 0 20px;
+    height: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding-right: 30px;
+}
+/* تنسيق الفورم */
+.login-form {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border: none;
+    background-color: transparent; /* عدم وجود خلفية للفورم */
+    text-align: right;
+    font-weight: bold;
+}
+.login-form h2 {
+    padding-top: 22px;
+    color: var(--app-primary);
+    font-weight: bold;
+    font-size: 35px;
+}
+/* تنسيق الصفحة عند تقليص العرض */
+@media (max-width: 768px) {
+    .login-box {
+        flex-direction: column;
+        width: 90%;
+        height: auto;
+    }
+
+    .right-side {
+        margin-top: 20px;
+    }
+
+    .login-box::before {
+        display: none;
+    }
+
+    /* تعديل الزر عند الشاشات الصغيرة */
+    .right-side .btn-primary {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+}
+/* ناثيرات رابط نسيت كلمة المرور */
+.text-decoration-none {
+    color: #000;
+}
+/* عند الشاشات المتوسطة (من 768px إلى 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .login-box {
+        flex-direction: row; /* العودة إلى ترتيب الصف */
+        width: 80%; /* عرض مناسب على الشاشات المتوسطة */
+        height: 70vh; /* تحديد ارتفاع مناسب */
+    }
+
+    .login-box::before {
+        width: 50%; /* عرض الصورة للنصف */
+        height: 100%; /* ترك الصورة تملأ الارتفاع */
+    }
+
+    .right-side {
+        margin-top: 0; /* إزالة المسافة العليا */
+    }
+}
+.right-side .form-control {
+    border-radius: 12px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    background-color: #f8f9fa;
+    text-align: right;
+    transition: all 0.3s ease;
+    height: 50px;
+}
+/* إضافة تأثير التمرير (هوفر) على الحقل */
+.right-side .form-control:hover {
+    border-color: #a3b3b9;
+}
+/* إضافة تأثير التركيز على الحقل */
+.right-side .form-control:focus {
+    border-color: var(--app-primary);
+    box-shadow: 0 0 5px var(--app-primary-alpha-50);
+}
+.right-side .btn-primary {
+    border-radius: 12px;
+    padding: 12px;
+    border-color: var(--app-primary) !important;
+
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 180px !important;
+    font-weight: bold;
+    display: block !important; /* جعل الزر كـ block لتوسيطه */
+    margin: 20px auto !important; /* توسيط الزر أفقيًا */
+    text-align: center;
+}
+.right-side .btn-primary:hover {
+    background-color: var(--app-primary-hover) !important;
+}
+/* تنسيق شريط البحث */
+.search-bar {
+    background-color: transparent;
+    padding: 10px 20px;
+    box-shadow: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+.search-bar input {
+    margin-top: 75px;
+    width: 50%;
+    padding: 10px;
+    font-size: 1.1rem;
+    border: 2px solid var(--app-primary);
+    border-radius: 5px;
+    background-color: transparent;
+    color: var(--app-primary);
+}
+.search-bar input:focus {
+    border-color: var(--app-primary);
+    outline: none;
+}
+.search-bar i {
+    position: relative;
+    color: var(--app-primary);
+    font-size: 1.2rem;
+    margin-top: 95px;
+    margin-right: -42px;
+}
+.display-4 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+}
+.icon-box {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+.icon-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+.icon-box i {
+    margin-bottom: 10px;
+    color: var(--app-primary);
+}
+.ms-3 {
+    font-size: 22px;
+    color: #fff;
+    margin-right: 750px;
+}
+.container.py-5 {
+    background-color: var(--app-surface);
+}
+.btn {
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 1.1rem;
+    background-color: var(--app-primary);
+    border: none;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+.btn-danger {
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 1.1rem;
+    border: none;
+    color: white;
+    transition: background-color 0.3s ease;
+    background-color: #dc3545;
+}
+.btn-danger:hover {
+    background-color: #b02a37;
+}
+/* تنسيق الكارد */
+.row .card {
+    min-height: 100%;
+}
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.btn {
+    align-self: center;
+}
+.card {
+    border-radius: 15px;
+    box-shadow: var(--app-shadow);
+    background-color: var(--app-surface-elevated);
+    border: 1px solid var(--app-primary-soft-strong);
+    margin-bottom: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+}
+.card-body {
+    padding: 20px;
+}
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+.form-label {
+    font-weight: bold;
+    color: #333;
+}
+.form-control {
+    border-radius: 10px;
+    border: 1px solid var(--app-primary);
+    box-shadow: none;
+}
+.form-control:focus {
+    border-color: var(--app-primary);
+    box-shadow: 0 0 5px var(--app-primary-alpha-50);
+}
+select.form-select {
+    border-radius: 10px;
+    border: 1px solid var(--app-primary);
+}
+textarea.form-control {
+    border-radius: 10px;
+    border: 1px solid var(--app-primary);
+}
+.add_btn {
+    border-radius: 10px;
+    background-color: var(--app-primary);
+    color: white;
+    padding: 12px;
+    font-size: 1.1rem;
+    border: none;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    margin-top: 25px;
+}
+.add_btn:hover {
+    background-color: var(--app-primary-hover);
+}
+.dropdown-menu {
+    min-width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.dropdown-item {
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    justify-content: right;
+    display: flex;
+}
+.dropdown-item:hover {
+    background-color: var(--app-primary);
+    color: white;
+}
+.dropdown-item i {
+    margin-left: 10px;
+}
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.container_h2 h2 {
+    text-align: center;
+    font-weight: bold;
+    color: var(--app-primary);
+}
+.container_h2 {
+    flex-grow: 1;
+}
+.container_h2,
+.Added_products,
+.request_details,
+.my_products {
+    margin-top: 70px;
+}
+
+/* صفحات النماذج — رأس مميز + بطاقة */
+.form-page {
+    flex-grow: 1;
+    margin-top: clamp(2.5rem, 6vh, 4rem);
+    margin-bottom: 2rem;
+}
+
+.form-page .container {
+    max-width: 760px;
+}
+
+.form-page__hero {
+    text-align: center;
+    margin-bottom: clamp(1.35rem, 3vw, 1.85rem);
+    padding: clamp(1.25rem, 3vw, 1.85rem);
+    border-radius: 22px;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-page--teal .form-page__hero {
+    background: linear-gradient(165deg, #f4faf9 0%, #ffffff 58%, #eaf4f3 100%);
+    box-shadow:
+        0 10px 32px rgba(26, 56, 54, 0.09),
+        0 0 0 1px rgba(37, 90, 87, 0.09);
+}
+
+.form-page--urgent .form-page__hero {
+    background: linear-gradient(165deg, #fff8f7 0%, #ffffff 55%, #fff0ee 100%);
+    box-shadow:
+        0 10px 32px rgba(192, 57, 43, 0.1),
+        0 0 0 1px rgba(192, 57, 43, 0.1);
+}
+
+.form-page__hero::before {
+    content: "";
+    position: absolute;
+    inset-inline-end: -20%;
+    inset-block-start: -45%;
+    width: 55%;
+    height: 95%;
+    background: radial-gradient(ellipse, rgba(37, 90, 87, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.form-page--urgent .form-page__hero::before {
+    background: radial-gradient(ellipse, rgba(192, 57, 43, 0.08) 0%, transparent 70%);
+}
+
+.form-page__eyebrow {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    padding: 0.35rem 0.95rem;
+    border-radius: 999px;
+    margin-bottom: 0.65rem;
+}
+
+.form-page--teal .form-page__eyebrow {
+    color: var(--app-primary);
+    background: rgba(37, 90, 87, 0.11);
+}
+
+.form-page--urgent .form-page__eyebrow {
+    color: #c0392b;
+    background: rgba(192, 57, 43, 0.11);
+}
+
+.form-page__title {
+    position: relative;
+    z-index: 1;
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: clamp(1.35rem, 2.8vw, 1.78rem);
+    font-weight: 800;
+    line-height: 1.35;
+    margin-bottom: 0.65rem;
+}
+
+.form-page--teal .form-page__title {
+    color: var(--app-navbar-deep);
+}
+
+.form-page--urgent .form-page__title {
+    color: #9b2c20;
+}
+
+.form-page__card-wrap {
+    max-width: 640px;
+    margin-inline: auto;
+}
+
+.form-page__card {
+    border-radius: 20px !important;
+}
+
+.form-page--teal .form-page__card {
+    border: 1px solid rgba(37, 90, 87, 0.11) !important;
+    box-shadow: 0 16px 44px rgba(26, 56, 54, 0.11) !important;
+}
+
+.form-page--urgent .form-page__card {
+    border: 1px solid rgba(192, 57, 43, 0.13) !important;
+    box-shadow: 0 16px 44px rgba(192, 57, 43, 0.1) !important;
+}
+
+.form-page__submit {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    padding: 0.75rem 1rem !important;
+    border-radius: 14px !important;
+}
+
+.form-page__submit--urgent {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
+    border: none !important;
+}
+
+.form-page__submit--urgent:hover {
+    filter: brightness(1.05);
+    color: #fff !important;
+}
+
+.form-page__footnote {
+    text-align: center;
+    font-size: 0.98rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    color: var(--app-primary);
+}
+
+.form-page--urgent .form-page__footnote {
+    color: #c0392b;
+}
+
+.icon-right.icon-right--textarea {
+    top: 2.85rem;
+    transform: none;
+}
+
+.icon-right2.icon-right2--textarea {
+    top: 1.65rem;
+    transform: none;
+}
+.description {
+    text-align: center;
+    font-size: 25px;
+    color: var(--app-muted);
+    margin-bottom: 20px;
+}
+.image-container {
+    text-align: center;
+    margin-top: 30px;
+}
+.encouraging-message {
+    font-size: 27px;
+    color: var(--app-primary);
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.image-container2 {
+    text-align: center;
+    margin-top: 30px;
+}
+.encouraging-message2 {
+    font-size: 27px;
+    color: var(--app-primary);
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.input-with-icon {
+    padding-right: 2.5rem;
+}
+.icon-right {
+    position: absolute;
+    right: 14px;
+    top: 72%;
+    transform: translateY(-50%);
+    color: var(--app-primary);
+    font-size: 1.2rem;
+    pointer-events: none;
+}
+.navbar .badge {
+    font-size: 0.8rem;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon-right2 {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--app-primary);
+    font-size: 1.2rem;
+    pointer-events: none;
+}
+.icon_add {
+    font-size: 22px;
+    margin-left: 5px;
+}
+.input-group input.form-control {
+    padding-right: 40px;
+}
+.list-group {
+    width: 82%;
+    margin-right: 146px;
+    margin-top: 35px;
+}
+.btn-primary:hover,
+.icon_add:hover {
+    background-color: var(--app-primary-hover);
+    color: white;
+}
+.d-flex {
+    justify-content: center;
+}
+.carousel-item {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transition: transform 0.5s ease;
+}
+.carousel-item.active {
+    opacity: 1;
+    position: relative;
+    z-index: 2;
+}
+.carousel-item img {
+    margin-top: 50px;
+}
+.carousel-item img:hover {
+    transform: scale(1.1);
+    transition: transform 0.5s ease;
+}
+.carousel-inner {
+    height: 100vh;
+    transition: transform 1s ease-in-out;
+}
+.carousel-item p {
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+.carousel-item h2 {
+    text-align: center;
+    font-weight: bold;
+    color: var(--app-primary);
+    font-size: 40px;
+}
+.carousel-control-prev,
+.carousel-control-next {
+    filter: invert(45%) sepia(76%) saturate(633%) hue-rotate(175deg)
+        brightness(85%) contrast(85%);
+    z-index: 10;
+}
+.Resources_addition {
+    margin-top: 100px;
+}
+.Resources_addition h2,
+.Appeals h2,
+.platform-steps-block__head h2,
+.contact-us h2,
+.home-cta__title,
+.Added_products h2,
+.request_details h2,
+.my_products h2,
+.my_request h2 {
+    color: var(--app-primary);
+    font-weight: bold;
+    position: relative;
+    font-size: 34px;
+    line-height: 1.2em;
+    margin-top: 10px;
+    font-family: "Lato", sans-serif;
+    margin-bottom: 45px;
+    margin-right: 16px;
+}
+.Resources_addition,
+.urgent-requests,
+.my_request,
+.my_products {
+    background-color: var(--app-surface-elevated);
+    padding: 30px;
+    border-radius: 10px;
+}
+.Appeals,
+.platform-steps-block,
+.contact-us,
+.home-cta,
+.my_request {
+    margin-top: 100px;
+}
+.carousel_section {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(180deg, var(--app-primary-soft) 0%, var(--app-surface) 100%);
+}
+
+.carousel-item.has-hero-modern {
+    padding: 0;
+}
+
+.hero-modern {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-modern__scene {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 58%;
+    filter: saturate(1.06);
+}
+
+.hero-modern__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        105deg,
+        rgba(26, 56, 54, 0.8) 0%,
+        rgba(37, 90, 87, 0.52) 46%,
+        rgba(26, 60, 58, 0.38) 100%
+    );
+}
+
+.hero-modern__inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero-modern__title {
+    color: #fff !important;
+    text-shadow: 0 4px 32px rgba(0, 0, 0, 0.38);
+    font-size: clamp(1.75rem, 4.5vw, 2.85rem) !important;
+}
+
+.hero-modern__brand {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.88);
+    margin-top: 0.75rem;
+    letter-spacing: 0.02em;
+}
+
+.hero-modern__lead {
+    color: rgba(255, 255, 255, 0.94) !important;
+    font-size: clamp(1.02rem, 2.3vw, 1.28rem) !important;
+    line-height: 1.8;
+    max-width: 38rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-modern__cta {
+    border-radius: 12px !important;
+    padding: 0.85rem 2.5rem !important;
+    font-weight: 700 !important;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+}
+
+.hero-modern__icons {
+    margin-top: 2.5rem !important;
+}
+
+.hero-icon-pill {
+    width: 118px !important;
+    height: auto !important;
+    min-height: 118px;
+    border-radius: 18px !important;
+    background: rgba(255, 255, 255, 0.97) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14) !important;
+    padding: 1rem 0.65rem !important;
+}
+
+.hero-icon-pill p {
+    color: var(--app-primary) !important;
+    font-weight: 600;
+    font-size: 0.88rem !important;
+    line-height: 1.35;
+}
+
+#latest-resources,
+#latest-emergency {
+    scroll-margin-top: 88px;
+}
+
+.home-hero-section {
+    width: 100%;
+}
+.no-scroll {
+    overflow: hidden;
+}
+.text-start {
+    margin-top: 160px;
+}
+.card-img-top {
+    width: 100%;
+    height: 310px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.Resources_addition .card,
+.urgent-requests .card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    border: none;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.Resources_addition .card:hover,
+.urgent-requests .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* قسم «الموارد المضافة حديثًا» — نسخة مميزة لصفحة الهوم */
+.Resources_addition.latest-resources-block {
+    background: linear-gradient(165deg, #fbfcfc 0%, #ffffff 52%, #f2f7f6 100%);
+    border-radius: 24px;
+    box-shadow:
+        0 10px 36px rgba(26, 56, 54, 0.08),
+        0 0 0 1px rgba(37, 90, 87, 0.08);
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+    position: relative;
+    overflow: hidden;
+}
+.Resources_addition.latest-resources-block::before {
+    content: "";
+    position: absolute;
+    inset-inline-end: -12%;
+    inset-block-start: -35%;
+    width: 48%;
+    height: 75%;
+    background: radial-gradient(ellipse, rgba(37, 90, 87, 0.07) 0%, transparent 68%);
+    pointer-events: none;
+}
+.latest-resources-block__inner {
+    position: relative;
+    z-index: 1;
+}
+.latest-resources-block__head {
+    text-align: center;
+    margin-bottom: clamp(1.35rem, 3vw, 2rem);
+}
+.latest-resources-block__head h2 {
+    margin-top: 0 !important;
+    margin-bottom: 0.6rem !important;
+    margin-right: 0 !important;
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2rem) !important;
+}
+.latest-resources-block__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--app-primary);
+    background: rgba(37, 90, 87, 0.1);
+    padding: 0.35rem 0.95rem;
+    border-radius: 999px;
+    margin-bottom: 0.65rem;
+}
+.latest-resources-block__sub {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: #5c6d74;
+    max-width: 36rem;
+    margin-inline: auto;
+    margin-bottom: 0;
+}
+.latest-resources-empty {
+    text-align: center;
+    padding: clamp(2rem, 5vw, 3rem) 1.25rem;
+    border-radius: 18px;
+    border: 2px dashed rgba(37, 90, 87, 0.22);
+    background: rgba(255, 255, 255, 0.75);
+}
+.latest-resources-empty__icon {
+    width: 4rem;
+    height: 4rem;
+    margin-inline: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(145deg, rgba(37, 90, 87, 0.14), rgba(37, 90, 87, 0.05));
+    color: var(--app-navbar-deep);
+    font-size: 1.65rem;
+}
+.latest-resources-empty__title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #394963;
+    margin-bottom: 0.4rem;
+}
+.latest-resources-empty__text {
+    font-size: 0.95rem;
+    color: #6a7b82;
+    max-width: 28rem;
+    margin-inline: auto;
+    line-height: 1.65;
+    margin-bottom: 0;
+}
+.latest-resources-block__actions {
+    margin-top: 2rem;
+    padding-bottom: 0.15rem;
+}
+.latest-resources-block__cta {
+    padding-inline: 2rem;
+}
+.Resources_addition.latest-resources-block .latest-resource-card {
+    border: 1px solid rgba(37, 90, 87, 0.12) !important;
+    box-shadow: 0 10px 28px rgba(26, 56, 54, 0.07) !important;
+}
+
+/* قسم النداءات العاجلة — إطار مماثل للموارد بلمسة حمراء */
+.urgent-requests.urgent-appeals-block {
+    background: linear-gradient(165deg, #fffbfb 0%, #ffffff 50%, #fff6f5 100%);
+    border-radius: 24px;
+    box-shadow:
+        0 10px 36px rgba(176, 44, 44, 0.08),
+        0 0 0 1px rgba(192, 57, 43, 0.09);
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+    position: relative;
+    overflow: hidden;
+}
+.urgent-requests.urgent-appeals-block::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: -12%;
+    inset-block-start: -38%;
+    width: 46%;
+    height: 78%;
+    background: radial-gradient(ellipse, rgba(192, 57, 43, 0.07) 0%, transparent 68%);
+    pointer-events: none;
+}
+.urgent-appeals-block__inner {
+    position: relative;
+    z-index: 1;
+}
+.urgent-appeals-block__head {
+    text-align: center;
+    margin-bottom: clamp(1.35rem, 3vw, 2rem);
+}
+.urgent-appeals-block__head h2 {
+    margin-top: 0 !important;
+    margin-bottom: 0.6rem !important;
+    margin-right: 0 !important;
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2rem) !important;
+    color: #b83226 !important;
+}
+.urgent-appeals-block__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #c0392b;
+    background: rgba(192, 57, 43, 0.1);
+    padding: 0.35rem 0.95rem;
+    border-radius: 999px;
+    margin-bottom: 0.65rem;
+}
+.urgent-appeals-block__sub {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: #5c6d74;
+    max-width: 36rem;
+    margin-inline: auto;
+    margin-bottom: 0;
+}
+.urgent-appeals-empty {
+    text-align: center;
+    padding: clamp(2rem, 5vw, 3rem) 1.25rem;
+    border-radius: 18px;
+    border: 2px dashed rgba(192, 57, 43, 0.25);
+    background: rgba(255, 255, 255, 0.82);
+}
+.urgent-appeals-empty__icon {
+    width: 4rem;
+    height: 4rem;
+    margin-inline: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(145deg, rgba(192, 57, 43, 0.15), rgba(192, 57, 43, 0.05));
+    color: #c0392b;
+    font-size: 1.65rem;
+}
+.urgent-appeals-empty__title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #394963;
+    margin-bottom: 0.4rem;
+}
+.urgent-appeals-empty__text {
+    font-size: 0.95rem;
+    color: #6a7b82;
+    max-width: 28rem;
+    margin-inline: auto;
+    line-height: 1.65;
+    margin-bottom: 0;
+}
+.urgent-appeals-block__actions {
+    margin-top: 2rem;
+    padding-bottom: 0.15rem;
+}
+.urgent-appeals-block__cta {
+    padding-inline: 2rem;
+}
+.urgent-requests.urgent-appeals-block .urgent-appeal-card {
+    border: 1px solid rgba(192, 57, 43, 0.12) !important;
+    box-shadow: 0 10px 28px rgba(192, 57, 43, 0.07) !important;
+}
+
+/* صورة ثابتة لكل بطاقات الطوارئ (emergency.png) */
+.urgent-card-image-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(165deg, #fff5f4 0%, #f8f9f9 55%, #ffffff 100%);
+    padding: 1rem 1.1rem;
+    min-height: 150px;
+}
+
+.urgent-card-image {
+    display: block;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    max-height: 155px;
+    object-fit: contain;
+}
+
+.emergency-show-visual .urgent-card-image-wrap {
+    border-radius: 16px;
+    min-height: 190px;
+    margin-bottom: 0;
+}
+
+.emergency-show-visual .urgent-card-image {
+    max-height: 200px;
+}
+
+/* زر عرض التفاصيل في بطاقات الطوارئ — أحمر، ليس الأخضر الافتراضي */
+.urgent-card-cta,
+.urgent-request-card__btn {
+    border-radius: 12px;
+    font-weight: 700;
+    padding: 0.5rem 1.15rem;
+    background: linear-gradient(135deg, #c0392b 0%, #922b21 100%) !important;
+    border: none !important;
+    color: #fff !important;
+    box-shadow: 0 6px 18px rgba(192, 57, 43, 0.3);
+}
+
+.urgent-card-cta:hover,
+.urgent-request-card__btn:hover {
+    filter: brightness(1.06);
+    color: #fff !important;
+}
+
+.urgent-request-card .urgent-card-cta {
+    margin-top: auto;
+}
+
+.urgent-appeal-card__media {
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
+}
+
+/* صفحة «جميع الطلبات العاجلة» — قائمة بطاقات */
+.urgent-requests-index-page {
+    flex-grow: 1;
+    margin-bottom: 2rem;
+}
+
+.urgent-requests-index__hero {
+    max-width: 40rem;
+    margin-inline: auto;
+    margin-bottom: clamp(1.1rem, 2.5vw, 1.65rem);
+}
+
+.urgent-requests-index__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #a82315;
+    background: rgba(192, 57, 43, 0.1);
+    padding: 0.35rem 0.95rem;
+    border-radius: 999px;
+    margin-bottom: 0.65rem;
+}
+
+.urgent-requests-index__title {
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: clamp(1.45rem, 3vw, 1.95rem);
+    font-weight: 800;
+    color: var(--app-navbar-deep);
+    margin-bottom: 0.45rem;
+}
+
+.urgent-requests-index__stat {
+    font-size: 0.95rem;
+    color: #5c6d74;
+    margin-bottom: 0;
+}
+
+.urgent-requests-index__stat-num {
+    font-weight: 800;
+    color: var(--app-primary);
+}
+
+.urgent-requests-index__alert {
+    max-width: 36rem;
+    margin-inline: auto;
+    margin-bottom: 1.25rem;
+    border-radius: 14px;
+}
+
+.urgent-requests-index__list-wrap {
+    background: #fff;
+    border-radius: 24px;
+    padding: clamp(1.25rem, 3vw, 1.85rem);
+    box-shadow:
+        0 10px 36px rgba(26, 56, 54, 0.06),
+        0 0 0 1px rgba(37, 90, 87, 0.06);
+    margin-bottom: 0.25rem;
+}
+
+.urgent-requests-index__empty {
+    text-align: center;
+    padding: clamp(2rem, 5vw, 3rem) 1.25rem;
+    background: linear-gradient(165deg, #fff8f7 0%, #ffffff 45%, #fff5f4 100%);
+    border-radius: 24px;
+    border: 1px solid rgba(192, 57, 43, 0.12);
+    box-shadow: 0 10px 32px rgba(192, 57, 43, 0.06);
+    margin-bottom: 1.5rem;
+}
+
+.urgent-requests-index__empty-icon {
+    width: 4rem;
+    height: 4rem;
+    margin-inline: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(192, 57, 43, 0.12);
+    color: #c0392b;
+    font-size: 1.5rem;
+}
+
+.urgent-requests-index__empty-title {
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #2c3d45;
+    margin-bottom: 0.5rem;
+}
+
+.urgent-requests-index__empty-text {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #6a7b82;
+    max-width: 28rem;
+    margin-inline: auto;
+    margin-bottom: 1.25rem;
+}
+
+.urgent-requests-index__empty-cta {
+    border-radius: 14px;
+    font-weight: 700;
+    padding: 0.55rem 1.35rem;
+    background: linear-gradient(135deg, #c0392b 0%, #922b21 100%);
+    border: none;
+    color: #fff !important;
+    box-shadow: 0 8px 22px rgba(192, 57, 43, 0.28);
+}
+
+.urgent-requests-index__empty-cta:hover {
+    color: #fff !important;
+    filter: brightness(1.05);
+}
+
+.urgent-requests-index__actions {
+    margin-top: clamp(1.35rem, 3vw, 2rem);
+    padding-bottom: 0.25rem;
+}
+
+.urgent-requests-index__home-link {
+    padding-inline: 2rem;
+}
+
+.urgent-request-card {
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid rgba(192, 57, 43, 0.12);
+    box-shadow: 0 10px 30px rgba(192, 57, 43, 0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.urgent-request-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 42px rgba(192, 57, 43, 0.14);
+}
+
+.urgent-request-card__media {
+    position: relative;
+    padding: 0;
+}
+
+.urgent-request-card__badge {
+    position: absolute;
+    inset-block-start: 0.95rem;
+    inset-inline-start: 0.95rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(135deg, #c0392b, #922b21);
+    padding: 0.28rem 0.6rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(146, 43, 33, 0.35);
+}
+
+.urgent-request-card__body {
+    padding: 1.1rem 1.2rem 1.35rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.urgent-request-card__title {
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2c3d45;
+    line-height: 1.55;
+    margin-bottom: 0.65rem;
+    flex-grow: 1;
+}
+
+.urgent-request-card__meta {
+    font-size: 0.85rem;
+    color: #6a7b82;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.4rem;
+    line-height: 1.45;
+    text-align: start;
+}
+
+.urgent-request-card__meta i {
+    color: #c0392b;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+}
+
+/* بدل الأسئلة الشائعة — ثلاث خطوات منظّمة */
+.platform-steps-block__inner {
+    max-width: 1100px;
+    margin-inline: auto;
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+    border-radius: 24px;
+    background: linear-gradient(165deg, #f8fbfb 0%, #ffffff 48%, #eef5f4 100%);
+    box-shadow:
+        0 8px 30px rgba(26, 56, 54, 0.07),
+        0 0 0 1px rgba(37, 90, 87, 0.07);
+    position: relative;
+    overflow: hidden;
+}
+.platform-steps-block__inner::before {
+    content: "";
+    position: absolute;
+    inset-inline-end: -15%;
+    inset-block-end: -35%;
+    width: 50%;
+    height: 70%;
+    background: radial-gradient(ellipse, rgba(37, 90, 87, 0.06) 0%, transparent 65%);
+    pointer-events: none;
+}
+.platform-steps-block__head {
+    position: relative;
+    z-index: 1;
+    margin-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+.platform-steps-block__head h2 {
+    margin-top: 0 !important;
+    margin-bottom: 0.6rem !important;
+    margin-right: 0 !important;
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: clamp(1.45rem, 3vw, 1.9rem) !important;
+}
+.platform-steps-block__eyebrow {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--app-primary);
+    background: rgba(37, 90, 87, 0.1);
+    padding: 0.35rem 0.95rem;
+    border-radius: 999px;
+    margin-bottom: 0.65rem;
+}
+.platform-steps-block__grid {
+    position: relative;
+    z-index: 1;
+}
+.platform-step-card {
+    position: relative;
+    height: 100%;
+    padding: 1.5rem 1.25rem;
+    border-radius: 18px;
+    background: #fff;
+    border: 1px solid rgba(37, 90, 87, 0.1);
+    box-shadow: 0 8px 24px rgba(26, 56, 54, 0.06);
+    text-align: center;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.platform-step-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 34px rgba(26, 56, 54, 0.1);
+}
+.platform-step-card__num {
+    position: absolute;
+    top: 0.85rem;
+    inset-inline-start: 0.85rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    line-height: 1.75rem;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(135deg, var(--app-primary), var(--app-navbar-deep));
+    border-radius: 8px;
+}
+.platform-step-card__icon {
+    width: 3rem;
+    height: 3rem;
+    margin: 0.5rem auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    color: var(--app-navbar-deep);
+    background: rgba(37, 90, 87, 0.1);
+}
+.platform-step-card__title {
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: 1.08rem;
+    font-weight: 800;
+    color: #2c3d45;
+    margin-bottom: 0.45rem;
+}
+.platform-step-card__text {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: #5c6d74;
+    margin-bottom: 0;
+}
+.about-app-section {
+    position: relative;
+    padding-top: 48px;
+    padding-bottom: 52px;
+    margin-top: 10px;
+    background: linear-gradient(180deg, #f7faf9 0%, #ffffff 42%, #f3f7f6 100%);
+}
+.auto-container {
+    position: static;
+    max-width: 1230px;
+    padding: 0px 30px;
+    margin: 0 auto;
+}
+.about-app-section .title-column {
+    position: relative;
+    text-align: right;
+}
+.about-app-section .title-column .inner-column {
+    position: relative;
+    margin-bottom: 0;
+    z-index: 1;
+    padding-inline-end: clamp(0rem, 3vw, 1.5rem);
+}
+.sec-title-two {
+    position: relative;
+    margin-bottom: 40px;
+}
+.sec-title-two .title {
+    position: relative;
+    color: var(--app-primary);
+    font-size: 14px;
+    font-weight: 700;
+}
+.sec-title-two h2 {
+    position: relative;
+    font-size: 34px;
+    color: #394963;
+    line-height: 1.2em;
+    font-weight: 700;
+    margin-top: 10px;
+    font-family: "Lato", sans-serif;
+}
+.sec-title-two .text {
+    position: relative;
+    color: #7f8897;
+    font-size: 20px;
+    line-height: 1.8em;
+    margin-top: 22px;
+    text-align: justify;
+}
+.about-app-section .image-column .inner-column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 0.5rem;
+}
+
+.about-platform-visual {
+    width: 100%;
+    max-width: 540px;
+    margin-inline: auto;
+}
+
+.about-platform-visual__frame {
+    margin: 0;
+    position: relative;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    background: linear-gradient(145deg, var(--app-navbar-deep) 0%, #0f1819 100%);
+    box-shadow:
+        0 26px 50px rgba(26, 56, 54, 0.28),
+        0 0 0 1px rgba(37, 90, 87, 0.14);
+}
+
+.about-platform-visual__frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.about-platform-visual__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    vertical-align: middle;
+}
+
+@media (max-width: 991px) {
+    .about-app-section .title-column .inner-column {
+        padding-inline-end: 0;
+        margin-bottom: 0.5rem;
+    }
+    .about-platform-visual {
+        max-width: 480px;
+    }
+}
+.copyRight {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 0;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 1rem;
+}
+.copyRight p {
+    margin-top: 0;
+}
+.custom-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+    color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+/* هيكل الصفحة: المحتوى يتمدد والفوتر يلتصق بأسفل الشاشة */
+#app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main.content {
+    flex: 1 0 auto;
+}
+
+footer {
+    color: white;
+    text-align: center;
+    padding: 0;
+    width: 100%;
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+footer.app-footer {
+    background: linear-gradient(180deg, var(--app-navbar-deep) 0%, #0f1819 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+/* زر الموارد */
+.resources-btn {
+    background: linear-gradient(135deg, var(--app-primary) 0%, var(--app-navbar-deep) 100%);
+    color: white;
+    border: 2px solid var(--app-navbar-deep);
+}
+.resources-btn:hover {
+    background: linear-gradient(135deg, var(--app-primary-hover) 0%, var(--app-navbar-deep) 100%);
+    transform: scale(1.05);
+    color: white;
+}
+/* زر الطلبات العاجلة */
+.urgent-btn {
+    background: linear-gradient(135deg, #dc3545, #b52a37);
+    color: white;
+    border: 2px solid #b52a37;
+}
+.urgent-btn:hover {
+    background: linear-gradient(135deg, #b52a37, #921f2a);
+    transform: scale(1.05);
+    color: white;
+}
+/* قسم الدعوة للإجراء (مساران: مورد / طلب عاجل) */
+.home-cta__shell {
+    max-width: 1100px;
+    margin-inline: auto;
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+    border-radius: 24px;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(248, 251, 250, 0.98) 100%);
+    box-shadow:
+        0 4px 24px rgba(26, 56, 54, 0.08),
+        0 0 0 1px rgba(37, 90, 87, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.home-cta__shell::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: -20%;
+    inset-block-start: -40%;
+    width: 55%;
+    height: 80%;
+    background: radial-gradient(ellipse, rgba(37, 90, 87, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.home-cta__header {
+    position: relative;
+    z-index: 1;
+    margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.home-cta__eyebrow {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    color: var(--app-primary);
+    background: rgba(37, 90, 87, 0.1);
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+}
+
+.home-cta__title {
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+    line-height: 1.35;
+    color: #2c3d45;
+    font-weight: 800;
+    max-width: 42rem;
+    margin-inline: auto;
+    margin-bottom: 0.75rem;
+}
+
+.home-cta__lead {
+    font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+    line-height: 1.75;
+    color: #5c6d74;
+    max-width: 36rem;
+    margin-inline: auto;
+    margin-bottom: 0;
+}
+
+.home-cta__grid {
+    position: relative;
+    z-index: 1;
+}
+
+/* أعمدة البطاقتين تمتد بنفس الارتفاع */
+.home-cta__grid > .col-md-6 {
+    display: flex;
+    flex-direction: column;
+}
+
+.home-cta__divider {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.home-cta__divider::before {
+    content: "";
+    position: absolute;
+    inset-block: 12%;
+    inset-inline: 50%;
+    width: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(37, 90, 87, 0.2) 20%,
+        rgba(37, 90, 87, 0.2) 80%,
+        transparent
+    );
+}
+
+.home-cta__or {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    padding: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--app-navbar-deep);
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 12px rgba(26, 56, 54, 0.12);
+    border: 1px solid rgba(37, 90, 87, 0.15);
+}
+
+.home-cta-card {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 260px;
+    padding: clamp(1.35rem, 3vw, 1.85rem);
+    border-radius: 18px;
+    background: #fff;
+    border: 1px solid rgba(37, 90, 87, 0.1);
+    box-shadow: 0 8px 28px rgba(26, 56, 54, 0.07);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    text-align: center;
+    overflow: hidden;
+}
+
+.home-cta-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(26, 56, 54, 0.12);
+    border-color: rgba(37, 90, 87, 0.22);
+}
+
+.home-cta-card__accent {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: 0;
+    height: 4px;
+    border-radius: 18px 18px 0 0;
+}
+
+.home-cta-card--resources .home-cta-card__accent {
+    background: linear-gradient(90deg, var(--app-primary), var(--app-navbar-deep));
+}
+
+.home-cta-card--urgent .home-cta-card__accent {
+    background: linear-gradient(90deg, #e74c3c, #c0392b);
+}
+
+.home-cta-card__icon-wrap {
+    margin-bottom: 1rem;
+}
+
+.home-cta-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 14px;
+    font-size: 1.35rem;
+    color: #fff;
+}
+
+.home-cta-card--resources .home-cta-card__icon {
+    background: linear-gradient(145deg, var(--app-primary) 0%, var(--app-navbar-deep) 100%);
+    box-shadow: 0 8px 20px rgba(37, 90, 87, 0.35);
+}
+
+.home-cta-card--urgent .home-cta-card__icon {
+    background: linear-gradient(145deg, #e74c3c 0%, #922b21 100%);
+    box-shadow: 0 8px 20px rgba(192, 57, 43, 0.35);
+}
+
+.home-cta-card__heading {
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #2c3d45;
+    margin-bottom: 0.5rem;
+}
+
+.home-cta-card__text {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #5c6d74;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+}
+
+.home-cta-card__text--compact {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    margin-bottom: 0.85rem;
+    flex-grow: 1;
+}
+
+.home-cta-card__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 280px;
+    margin-inline: auto;
+    margin-top: auto;
+    padding: 0.85rem 1.25rem;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff !important;
+    border: none;
+    transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.home-cta-card__btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+    color: #fff !important;
+}
+
+.home-cta-card__btn--teal {
+    background: linear-gradient(135deg, var(--app-primary) 0%, var(--app-navbar-deep) 100%);
+}
+
+.home-cta-card__btn--urgent {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+@media (max-width: 767px) {
+    .home-cta-card {
+        text-align: center;
+    }
+}
+/* تنسيق قسم الأسئلة الشائعة */
+.accordion-button {
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 1rem;
+    color: #000;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+/* تنسيق النص داخل الأسئلة */
+.accordion-body {
+    font-size: 20px;
+    color: #555;
+    line-height: 1.6;
+    padding: 1.2rem;
+    margin-top: -25px;
+}
+/* تنسيق النص عند التوسيع */
+.accordion-button:focus {
+    box-shadow: none;
+    outline: none;
+}
+/* تنسيق صفحة جميع المنتجات المضافة   */
+.Added_products p,
+.request_details p {
+    font-size: 20px;
+}
+
+.modal-body {
+    font-size: 19px;
+}
+/* تنسيق الأزرار داخل النافذة المنبثقة */
+.modal-footer .btn {
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    border-top: 1px solid #ddd;
+    margin: 3px;
+}
+.modal-footer .btn:hover {
+    transform: scale(1.1);
+}
+/* زر التعديل */
+#editButton {
+    background-color: #ffc107;
+    color: white;
+    border: none;
+}
+#editButton:hover {
+    background-color: #e0a800;
+}
+/* زر الحذف */
+#deleteButton {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+#deleteButton:hover {
+    background-color: #c82333;
+}
+/* زر إغلاق */
+#productModal .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+#productModal .btn-secondary:hover {
+    background-color: #5a6268;
+}
+/* جعل الزر في المنتصف */
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 100px;
+}
+/* أيقونة الصفحة الرئيسية */
+.home-btn i {
+    font-size: 22px;
+}
+/* تنسيق الزر */
+.home-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(135deg, var(--app-primary) 0%, var(--app-primary-hover) 100%);
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 14px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0 5px 15px var(--app-primary-alpha-50);
+    position: relative;
+    overflow: hidden;
+}
+.home-btn:hover {
+    background: linear-gradient(135deg, var(--app-primary-hover) 0%, var(--app-navbar-deep) 100%);
+    transform: scale(1.08);
+    box-shadow: 0 8px 20px rgba(28, 44, 48, 0.2);
+}
+/* تحريك الأيقونة عند تمرير الماوس */
+.home-btn:hover i {
+    transform: translateX(-5px);
+}
+.whatsapp-button {
+    background-color: #25d366 !important; /* لون واتساب الرسمي */
+    color: white !important;
+    border: none;
+}
+.whatsapp-button:hover {
+    background-color: #1ebe5d !important;
+}
+.btn-secondary {
+    background-color: #6c757d !important;
+    color: white !important;
+}
+.btn-secondary {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+    color: white !important;
+}
+.btn-secondary:hover {
+    background-color: #545b62 !important;
+}
+/* تنسيق الصورة الشخصية */
+.profile-photo {
+    width: 30%; /* تقليل عرض الصورة */
+    text-align: center;
+    padding: 0%;
+    margin-left: 20px; /* تقليل المسافة بين الصورة والمحتوى */
+}
+.profile-photo img {
+    margin-right: -220px;
+    height: 218px;
+    border-radius: 50%;
+}
+/* تنسيق معلومات الملف الشخصي */
+.profile-info {
+    width: 75%;
+    margin-top: 84px;
+}
+.profile-info .form-label,
+.profile-edit .form-label {
+    width: 50%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+}
+.profile-info .form-label i,
+.profile-edit .form-label i {
+    margin-left: 5px;
+    color: var(--app-primary);
+}
+.profile-info .form-control,
+.profile-edit .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: none; /* إزالة الحدود */
+    background-color: #e9ecef; /* تغيير لون الخلفية للمستطيلات */
+}
+/* تنسيق الزر */
+.profile-info .btn,
+.profile-edit .btn {
+    margin-top: 40px;
+    padding: 10px 20px;
+    background-color: var(--app-primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+.profile-info .btn i,
+.profile-edit .btn i {
+    margin-right: 10px;
+    margin-left: 7px;
+    color: white;
+    font-size: 1.2rem;
+}
+.profile-info .btn:hover {
+    background-color: var(--app-primary-hover);
+}
+.profile-info .btn:hover i {
+    color: white; /* التأكد من أن الأيقونة تظل باللون الأبيض */
+}
+@media (max-width: 768px) {
+    .profile-container {
+        flex-direction: column-reverse; /* جعل الصورة تحت النص */
+    }
+
+    .profile-photo {
+        width: 50%; /* تكبير الصورة على الشاشات الصغيرة */
+    }
+
+    .profile-info {
+        width: 100%;
+    }
+    .profile-info .btn {
+        width: 75%;
+        margin: auto;
+    }
+}
+.header-right h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    padding-right: 10px; /* إضافة مسافة إضافية من اليمين إذا لزم الأمر */
+}
+.logout i {
+    margin-left: 5px;
+}
+.logout {
+    position: absolute;
+    left: 0;
+    margin-left: 50px;
+}
+/* تنسيق الـ profile-container */
+.profile-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+.profile {
+    width: 70%;
+    margin: 0 auto;
+}
+.editProfile-photo {
+    text-align: center;
+    margin-right: -220px;
+}
+.editProfile-photo img {
+    height: 218px;
+    border-radius: 50%;
+    margin-bottom: 10px; /* تقليل المسافة بين الصورة والمحتوى */
+}
+/*  تنسيق زر تحميل الصورة*/
+.btn-upload {
+    background-color: #dcdcdc; /* الخلفية السكنية الباردة */
+    color: var(--app-primary); /* لون النص أزرق */
+    border: 2px solid var(--app-primary); /* الحدود الزرقاء */
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 40%;
+    font-weight: bold;
+}
+/* عند مرور الفأرة على الزر */
+.btn-upload:hover {
+    background-color: #b0b0b0; /* تغيير اللون إلى درجة أغمق */
+}
+.custom-file-input {
+    display: none; /* إخفاء مربع اختيار الملف الأصلي */
+}
+/* تحسين شكل النص داخل مربع اختيار الملف */
+.custom-file-label::after {
+    content: "اختر ملف";
+}
+.custom-file-label {
+    text-align: right; /* لجعل النص يظهر بشكل صحيح بالعربية */
+}
+/* تحسين التفاعل مع المربع */
+.custom-file-input:lang(ar) ~ .custom-file-label::after {
+    content: "اختر ملف";
+}
+.profile-edit {
+    margin-top: 84px;
+}
+.modal-dialog {
+    margin-top: 192px;
+}
+.edit_done {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 400px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 70px;
+}
+.edit_done i {
+    margin-left: 8px;
+    font-size: 1.5rem;
+    color: #28a745;
+}
+.modal-container {
+    width: 100%;
+    max-width: 500px; /* تحديد عرض مشابه للمودال الأصلي */
+    margin: 50px auto 50px; /* يضمن عدم تغطية النافبار أو الفوتر */
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1; /* يضمن عدم التغطية */
+}
+.modal-dialog {
+    max-width: 100%;
+    margin: auto;
+}
+.modal-content {
+    border-radius: 10px;
+}
+.modal-header {
+    background: #f8f9fa;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+.modal-body {
+    padding: 15px;
+}
+
+.animate-icon {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInFromRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* صفحة الترحيل — بدون navbar: مشهد الهيرو ملء الشاشة */
+.landing-body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: auto;
+    display: block;
+    background: #1a3836;
+    overflow-x: hidden;
+}
+
+.landing-body--shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+.landing-body__main {
+    flex: 1 0 auto;
+}
+
+.landing-splash {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
+}
+
+.landing-splash__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.landing-splash__veil {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10, 24, 23, 0.5) 0%, transparent 40%);
+    pointer-events: none;
+}
+
+.landing-splash__logo {
+    position: absolute;
+    top: clamp(0.75rem, 3vw, 1.35rem);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.landing-splash__logo img {
+    display: block;
+    height: clamp(42px, 10vw, 64px);
+    width: auto;
+    max-width: min(90vw, 220px);
+    object-fit: contain;
+    filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.35));
+}
+
+/* صفحة الترحيل: الهيرو يملأ الشاشة تحت الهيدر — بدون تمرير للصفحة */
+html.landing-viewport-lock {
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
+}
+
+html.landing-viewport-lock body.page-landing-index {
+    height: 100%;
+    max-height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+body.page-landing-index #app {
+    height: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+body.page-landing-index .navbar {
+    flex-shrink: 0;
+}
+
+body.page-landing-index footer.app-footer {
+    flex-shrink: 0;
+}
+
+body.page-landing-index main.content {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+body.page-landing-index .home-hero-section {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+body.page-landing-index .hero-modern {
+    flex: 1;
+    min-height: 0 !important;
+    width: 100%;
+    max-height: 100%;
+}
+
+body.page-landing-index .hero-modern__inner {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+}
+
+body.page-landing-index .hero-modern__title {
+    font-size: clamp(1.35rem, 3.8vw, 2.35rem) !important;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+}
+
+body.page-landing-index .hero-modern__brand {
+    margin-top: 0.35rem;
+    font-size: 0.88rem;
+}
+
+body.page-landing-index .hero-modern__lead {
+    font-size: clamp(0.9rem, 2vw, 1.08rem) !important;
+    line-height: 1.55;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.65rem !important;
+}
+
+body.page-landing-index .hero-modern__cta {
+    padding: 0.65rem 1.75rem !important;
+    font-size: 1rem !important;
+}
+
+body.page-landing-index .hero-modern__icons {
+    margin-top: 2rem !important;
+    gap: 0.5rem !important;
+}
+
+body.page-landing-index .hero-icon-pill {
+    width: 92px !important;
+    min-height: 92px !important;
+    padding: 0.55rem 0.35rem !important;
+}
+
+body.page-landing-index .hero-icon-pill .fa-2x {
+    font-size: 1.35rem !important;
+}
+
+body.page-landing-index .hero-icon-pill p {
+    font-size: 0.72rem !important;
+}
+
+@media (max-width: 576px) {
+    body.page-landing-index .hero-icon-pill {
+        width: 78px !important;
+        min-height: 82px !important;
+    }
+}
+
+/* ——— لوحة المستخدم (منتجاتي + طلباتي) ——— */
+.user-dashboard {
+    max-width: 1140px;
+    margin-inline: auto;
+    margin-top: clamp(1.5rem, 4vh, 2.5rem);
+}
+
+.user-dash-section {
+    margin-bottom: clamp(2rem, 5vw, 3rem);
+    padding: clamp(1.35rem, 3vw, 2.35rem);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.user-dash-section--products {
+    background: linear-gradient(165deg, #f4faf9 0%, #ffffff 55%, #eaf4f3 100%);
+    box-shadow:
+        0 10px 36px rgba(26, 56, 54, 0.09),
+        0 0 0 1px rgba(37, 90, 87, 0.08);
+}
+
+.user-dash-section--urgent {
+    background: linear-gradient(165deg, #fff8f7 0%, #ffffff 52%, #fff0ee 100%);
+    box-shadow:
+        0 10px 36px rgba(192, 57, 43, 0.1),
+        0 0 0 1px rgba(192, 57, 43, 0.09);
+}
+
+.user-dash-section__head {
+    text-align: center;
+    margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+.user-dash-section__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--app-primary);
+    background: rgba(37, 90, 87, 0.11);
+    padding: 0.35rem 0.95rem;
+    border-radius: 999px;
+    margin-bottom: 0.6rem;
+}
+
+.user-dash-section__eyebrow--danger {
+    color: #c0392b;
+    background: rgba(192, 57, 43, 0.11);
+}
+
+.user-dash-section__title {
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: clamp(1.45rem, 3vw, 1.9rem);
+    font-weight: 800;
+    color: var(--app-navbar-deep);
+    margin-bottom: 0.45rem;
+}
+
+.user-dash-section__title--danger {
+    color: #9b2c20;
+}
+
+.user-dash-section__sub {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: #5c6d74;
+    max-width: 38rem;
+    margin: 0 auto;
+}
+
+.user-dash-empty {
+    text-align: center;
+    padding: clamp(2rem, 5vw, 2.75rem) 1.25rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.82);
+    max-width: 26rem;
+    margin-inline: auto;
+}
+
+.user-dash-empty--teal {
+    border: 2px dashed rgba(37, 90, 87, 0.22);
+}
+
+.user-dash-empty--danger {
+    border: 2px dashed rgba(192, 57, 43, 0.25);
+}
+
+.user-dash-empty__icon {
+    width: 3.75rem;
+    height: 3.75rem;
+    margin-inline: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.5rem;
+}
+
+.user-dash-empty--teal .user-dash-empty__icon {
+    background: linear-gradient(145deg, rgba(37, 90, 87, 0.14), rgba(37, 90, 87, 0.05));
+    color: var(--app-navbar-deep);
+}
+
+.user-dash-empty--danger .user-dash-empty__icon {
+    background: linear-gradient(145deg, rgba(192, 57, 43, 0.18), rgba(192, 57, 43, 0.06));
+    color: #c0392b;
+}
+
+.user-dash-empty__title {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #2c3d45;
+    margin-bottom: 0.35rem;
+}
+
+.user-dash-empty__text {
+    font-size: 0.92rem;
+    color: #6a7b82;
+    line-height: 1.6;
+    margin-bottom: 1.1rem;
+}
+
+.user-dash-empty__btn {
+    border-radius: 12px;
+    font-weight: 700;
+    padding-inline: 1.25rem;
+}
+
+.user-dash-empty__btn--danger {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    border: none;
+    color: #fff;
+}
+
+.user-dash-empty__btn--danger:hover {
+    color: #fff;
+    filter: brightness(1.05);
+}
+
+.user-dash-product-card {
+    border-radius: 16px !important;
+    overflow: hidden;
+    border: 1px solid rgba(37, 90, 87, 0.1) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-dash-product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(26, 56, 54, 0.12) !important;
+}
+
+.user-dash-product-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.user-dash-urgent-card {
+    border-radius: 16px !important;
+    overflow: hidden;
+    border: 1px solid rgba(192, 57, 43, 0.12) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-dash-urgent-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(192, 57, 43, 0.12) !important;
+}
+
+.user-dash-urgent-card__visual {
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.user-dash-card-title {
+    color: var(--app-navbar-deep);
+    font-weight: 700;
+}
+
+.user-dash-footer {
+    margin-top: 0.5rem;
+    margin-bottom: 2.5rem;
+}
+
+/* ——— عرض الملف الشخصي ——— */
+.profile-page {
+    flex-grow: 1;
+}
+
+.profile-page__hero {
+    max-width: 36rem;
+    margin-inline: auto;
+}
+
+.profile-page__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--app-primary);
+    background: rgba(37, 90, 87, 0.1);
+    padding: 0.35rem 0.95rem;
+    border-radius: 999px;
+    margin-bottom: 0.6rem;
+}
+
+.profile-page__title {
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: clamp(1.45rem, 3vw, 1.85rem);
+    font-weight: 800;
+    color: var(--app-navbar-deep);
+    margin-bottom: 0.45rem;
+}
+
+.profile-page__card {
+    max-width: 920px;
+    margin-inline: auto;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow:
+        0 12px 40px rgba(26, 56, 54, 0.1),
+        0 0 0 1px rgba(37, 90, 87, 0.08);
+    overflow: hidden;
+}
+
+.profile-page__layout {
+    display: grid;
+    grid-template-columns: minmax(220px, 280px) 1fr;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    padding: clamp(1.5rem, 4vw, 2.25rem);
+    align-items: start;
+}
+
+.profile-page__aside {
+    text-align: center;
+    padding-top: 0.25rem;
+}
+
+.profile-page__avatar-ring {
+    display: inline-block;
+    padding: 5px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, var(--app-primary), var(--app-navbar-deep));
+    box-shadow: 0 10px 28px rgba(37, 90, 87, 0.25);
+}
+
+.profile-page__avatar {
+    display: block;
+    width: clamp(140px, 28vw, 180px);
+    height: clamp(140px, 28vw, 180px);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+}
+
+.profile-page__display-name {
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: #2c3d45;
+    margin-top: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+.profile-page__display-email {
+    font-size: 0.88rem;
+    color: #6a7b82;
+    margin-bottom: 0;
+    word-break: break-word;
+}
+
+.profile-field {
+    margin-bottom: 1rem;
+}
+
+.profile-field__label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--app-primary);
+    margin-bottom: 0.35rem;
+}
+
+.profile-field__value {
+    background: linear-gradient(180deg, #f3f6f6 0%, #eef2f2 100%);
+    border: 1px solid rgba(37, 90, 87, 0.1);
+    border-radius: 12px;
+    padding: 0.65rem 0.9rem;
+    font-size: 0.98rem;
+    color: #2c3d45;
+    line-height: 1.5;
+}
+
+.profile-page__actions {
+    margin-top: 1.5rem;
+}
+
+.profile-page__edit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 320px;
+    padding: 0.75rem 1.25rem;
+    border-radius: 14px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--app-primary) 0%, var(--app-navbar-deep) 100%);
+    border: none;
+    color: #fff !important;
+    text-decoration: none !important;
+    box-shadow: 0 8px 22px rgba(37, 90, 87, 0.28);
+    transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.profile-page__edit-btn:hover {
+    color: #fff !important;
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+}
+
+.profile-page__edit-btn i {
+    font-size: 1.05rem;
+}
+
+@media (max-width: 767px) {
+    .profile-page__layout {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .profile-field__label {
+        justify-content: center;
+    }
+
+    .profile-page__edit-btn {
+        max-width: none;
+    }
+}
+
+/* ——— كتالوج المنتجات (/products) ——— */
+.products-catalog-page {
+    flex-grow: 1;
+}
+
+.products-catalog__hero {
+    max-width: 40rem;
+    margin-inline: auto;
+    margin-bottom: 1.75rem;
+}
+
+.products-catalog__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--app-primary);
+    background: rgba(37, 90, 87, 0.11);
+    padding: 0.35rem 0.95rem;
+    border-radius: 999px;
+    margin-bottom: 0.65rem;
+}
+
+.products-catalog__title {
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: clamp(1.45rem, 3vw, 1.95rem);
+    font-weight: 800;
+    color: var(--app-navbar-deep);
+    margin-bottom: 0.5rem;
+}
+
+.products-catalog__stat {
+    font-size: 0.95rem;
+    color: #5c6d74;
+    margin-bottom: 0;
+}
+
+.products-catalog__stat-num {
+    font-weight: 800;
+    color: var(--app-primary);
+    font-size: 1.15em;
+}
+
+.products-catalog__alert {
+    max-width: 40rem;
+    margin-inline: auto;
+    border-radius: 14px;
+}
+
+.products-catalog-board {
+    margin-bottom: 1.5rem;
+    padding: clamp(1.25rem, 3vw, 1.85rem);
+    border-radius: 22px;
+    background: #fff;
+    box-shadow:
+        0 8px 28px rgba(26, 56, 54, 0.06),
+        0 0 0 1px rgba(37, 90, 87, 0.06);
+    border-inline-start: 4px solid var(--app-primary);
+}
+
+.products-catalog-board__head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+.products-catalog-board__icon {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    font-size: 1.25rem;
+    background: rgba(37, 90, 87, 0.12);
+    color: var(--app-navbar-deep);
+}
+
+.products-catalog-board__title {
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #2c3d45;
+    margin-bottom: 0.15rem;
+}
+
+.products-catalog-board__meta {
+    font-size: 0.88rem;
+    color: #6a7b82;
+    margin-bottom: 0;
+}
+
+.products-catalog__empty-global {
+    text-align: center;
+    padding: clamp(2.5rem, 6vw, 3.5rem) 1.25rem;
+    max-width: 26rem;
+    margin-inline: auto;
+    border-radius: 22px;
+    border: 2px dashed rgba(37, 90, 87, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+}
+
+.products-catalog__empty-global-icon {
+    width: 3.75rem;
+    height: 3.75rem;
+    margin-inline: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(145deg, rgba(37, 90, 87, 0.14), rgba(37, 90, 87, 0.05));
+    color: var(--app-navbar-deep);
+    font-size: 1.5rem;
+}
+
+.product-catalog-card {
+    border-radius: 16px !important;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(37, 90, 87, 0.08) !important;
+}
+
+.product-catalog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(26, 56, 54, 0.12) !important;
+}
+
+.product-catalog-card__img-wrap {
+    position: relative;
+}
+
+.product-catalog-card__img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.product-catalog-card__name {
+    font-weight: 700;
+    color: var(--app-navbar-deep);
+}
+
+.products-catalog__footer {
+    margin-top: 0.5rem;
+    margin-bottom: 2.5rem;
+}
+
+/* صفحة تفاصيل منتج (/products/{slug}) */
+.product-detail-page {
+    flex-grow: 1;
+    margin-bottom: 2rem;
+}
+
+.product-detail-page__alert {
+    max-width: 36rem;
+    margin-inline: auto;
+    margin-bottom: 1rem;
+    border-radius: 14px;
+}
+
+.product-detail-page__hero {
+    max-width: 42rem;
+    margin-inline: auto;
+    margin-bottom: 1.35rem;
+    text-align: center;
+}
+
+.product-detail-page__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--app-primary);
+    background: rgba(37, 90, 87, 0.1);
+    padding: 0.35rem 0.95rem;
+    border-radius: 999px;
+    margin-bottom: 0.6rem;
+}
+
+.product-detail-page__title {
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: clamp(1.35rem, 3vw, 1.75rem);
+    font-weight: 800;
+    color: var(--app-navbar-deep);
+    line-height: 1.35;
+    margin-bottom: 0;
+}
+
+.product-detail-page__card {
+    max-width: 560px;
+    margin-inline: auto;
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow:
+        0 12px 40px rgba(26, 56, 54, 0.1),
+        0 0 0 1px rgba(37, 90, 87, 0.08);
+}
+
+.product-detail-page__media {
+    background: linear-gradient(180deg, #f4faf9 0%, #ffffff 100%);
+    padding: clamp(1rem, 3vw, 1.5rem);
+    text-align: center;
+}
+
+.product-detail-page__img {
+    width: 100%;
+    max-height: min(420px, 55vh);
+    object-fit: contain;
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(26, 56, 54, 0.12);
+}
+
+.product-detail-page__fields {
+    margin: 0;
+    padding: 0 1.35rem;
+}
+
+.product-detail-page__row {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(37, 90, 87, 0.08);
+}
+
+.product-detail-page__row:last-of-type {
+    border-bottom: none;
+}
+
+.product-detail-page__row--inline {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 480px) {
+    .product-detail-page__row--inline {
+        grid-template-columns: 1fr;
+    }
+}
+
+.product-detail-page__dt {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--app-primary);
+    margin-bottom: 0.35rem;
+}
+
+.product-detail-page__dd {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: #2c3d45;
+}
+
+.product-detail-page__dd--mono {
+    font-family: ui-monospace, "Cascadia Code", monospace;
+    direction: ltr;
+    text-align: right;
+    unicode-bidi: plaintext;
+}
+
+.product-detail-page__actions {
+    padding: 1.25rem 1.35rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.product-detail-page__btn {
+    border-radius: 14px;
+    font-weight: 700;
+    padding: 0.6rem 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    border: none;
+}
+
+.product-detail-page__btn--wa {
+    background: linear-gradient(135deg, #25d366, #1ebe5d) !important;
+    color: #fff !important;
+    box-shadow: 0 8px 22px rgba(37, 211, 102, 0.35);
+}
+
+.product-detail-page__btn--wa:hover {
+    color: #fff !important;
+    filter: brightness(1.05);
+}
+
+.product-detail-page__btn--outline {
+    background: #fff !important;
+    color: var(--app-navbar-deep) !important;
+    border: 2px solid rgba(37, 90, 87, 0.25) !important;
+}
+
+.product-detail-page__btn--outline:hover {
+    background: rgba(37, 90, 87, 0.06) !important;
+    color: var(--app-navbar-deep) !important;
+}
+
+.product-detail-page__owner-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    justify-content: center;
+    margin-top: 0.35rem;
+    padding-top: 0.85rem;
+    border-top: 1px dashed rgba(37, 90, 87, 0.15);
+}
+
+.product-detail-page__btn--edit {
+    background: linear-gradient(135deg, #f0ad4e, #ec971f) !important;
+    color: #fff !important;
+    flex: 1;
+    min-width: 7rem;
+}
+
+.product-detail-page__btn--edit:hover {
+    color: #fff !important;
+    filter: brightness(1.04);
+}
+
+.product-detail-page__delete-form {
+    flex: 1;
+    min-width: 7rem;
+    margin: 0;
+}
+
+.product-detail-page__btn--delete {
+    width: 100%;
+    background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+    color: #fff !important;
+}
+
+.product-detail-page__btn--delete:hover {
+    color: #fff !important;
+    filter: brightness(1.04);
+}
+
+/* تفاصيل طلب عاجل — نفس فكرة صفحة المنتج */
+.emergency-detail-page {
+    flex-grow: 1;
+    margin-bottom: 2rem;
+}
+
+.emergency-detail-page__alert {
+    max-width: 36rem;
+    margin-inline: auto;
+    margin-bottom: 1rem;
+    border-radius: 14px;
+}
+
+.emergency-detail-page__hero {
+    max-width: 42rem;
+    margin-inline: auto;
+    margin-bottom: 1.35rem;
+    text-align: center;
+}
+
+.emergency-detail-page__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #a82315;
+    background: rgba(192, 57, 43, 0.1);
+    padding: 0.35rem 0.95rem;
+    border-radius: 999px;
+    margin-bottom: 0.6rem;
+}
+
+.emergency-detail-page__title {
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: clamp(1.35rem, 3vw, 1.75rem);
+    font-weight: 800;
+    color: var(--app-navbar-deep);
+    line-height: 1.35;
+    margin-bottom: 0;
+}
+
+.emergency-detail-page__card {
+    max-width: 560px;
+    margin-inline: auto;
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow:
+        0 12px 40px rgba(192, 57, 43, 0.08),
+        0 0 0 1px rgba(192, 57, 43, 0.1);
+}
+
+.emergency-detail-page__media {
+    padding: 0;
+    text-align: center;
+    background: linear-gradient(180deg, #fff8f7 0%, #ffffff 100%);
+}
+
+.emergency-detail-page__media .urgent-card-image-wrap {
+    min-height: 0;
+    padding: clamp(1rem, 3vw, 1.5rem);
+    background: transparent;
+}
+
+.emergency-detail-page__media .urgent-card-image {
+    max-height: min(260px, 42vh);
+    filter: drop-shadow(0 8px 20px rgba(26, 56, 54, 0.12));
+}
+
+.emergency-detail-page__fields {
+    margin: 0;
+    padding: 0 1.35rem;
+}
+
+.emergency-detail-page__row {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(192, 57, 43, 0.1);
+}
+
+.emergency-detail-page__row:last-of-type {
+    border-bottom: none;
+}
+
+.emergency-detail-page__dt {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #c0392b;
+    margin-bottom: 0.35rem;
+}
+
+.emergency-detail-page__dd {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: #2c3d45;
+}
+
+.emergency-detail-page__dd--mono {
+    font-family: ui-monospace, "Cascadia Code", monospace;
+    direction: ltr;
+    text-align: right;
+    unicode-bidi: plaintext;
+}
+
+.emergency-detail-page__actions {
+    padding: 1.25rem 1.35rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.emergency-detail-page__btn {
+    border-radius: 14px;
+    font-weight: 700;
+    padding: 0.6rem 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    border: none;
+}
+
+/* تواصل واتساب — تدرج طوارئ (ليس الأخضر الافتراضي) */
+.emergency-detail-page__btn--contact {
+    background: linear-gradient(135deg, #c0392b 0%, #922b21 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 8px 22px rgba(192, 57, 43, 0.35);
+}
+
+.emergency-detail-page__btn--contact:hover {
+    color: #fff !important;
+    filter: brightness(1.06);
+}
+
+.emergency-detail-page__btn--outline {
+    background: #fff !important;
+    color: var(--app-navbar-deep) !important;
+    border: 2px solid rgba(37, 90, 87, 0.25) !important;
+}
+
+.emergency-detail-page__btn--outline:hover {
+    background: rgba(37, 90, 87, 0.06) !important;
+    color: var(--app-navbar-deep) !important;
+}
+
+.emergency-detail-page__owner-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    justify-content: center;
+    margin-top: 0.35rem;
+    padding-top: 0.85rem;
+    border-top: 1px dashed rgba(192, 57, 43, 0.2);
+}
+
+.emergency-detail-page__btn--edit {
+    background: linear-gradient(135deg, #f0ad4e, #ec971f) !important;
+    color: #fff !important;
+    flex: 1;
+    min-width: 7rem;
+}
+
+.emergency-detail-page__btn--edit:hover {
+    color: #fff !important;
+    filter: brightness(1.04);
+}
+
+.emergency-detail-page__delete-form {
+    flex: 1;
+    min-width: 7rem;
+    margin: 0;
+}
+
+.emergency-detail-page__btn--delete {
+    width: 100%;
+    background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+    color: #fff !important;
+}
+
+.emergency-detail-page__btn--delete:hover {
+    color: #fff !important;
+    filter: brightness(1.04);
+}
+
+.form-page--urgent .form-page__footnote a {
+    color: #c0392b;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.form-page--urgent .form-page__footnote a:hover {
+    text-decoration: underline;
+}
+
+/* تعديل الملف الشخصي */
+.profile-edit-page {
+    flex-grow: 1;
+    margin-bottom: 2rem;
+}
+
+.profile-edit-page__hero {
+    max-width: 38rem;
+    margin-inline: auto;
+    margin-bottom: 1.75rem;
+}
+
+.profile-edit-page__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--app-primary);
+    background: rgba(37, 90, 87, 0.1);
+    padding: 0.35rem 0.95rem;
+    border-radius: 999px;
+    margin-bottom: 0.6rem;
+}
+
+.profile-edit-page__title {
+    font-family: "Cairo", "Segoe UI", sans-serif;
+    font-size: clamp(1.4rem, 3vw, 1.85rem);
+    font-weight: 800;
+    color: var(--app-navbar-deep);
+    margin-bottom: 0.45rem;
+}
+
+.profile-edit-page__layout {
+    max-width: 920px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: minmax(200px, 260px) 1fr;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    align-items: center;
+    padding: clamp(1.35rem, 3vw, 2rem);
+    background: #fff;
+    border-radius: 24px;
+    box-shadow:
+        0 12px 40px rgba(26, 56, 54, 0.1),
+        0 0 0 1px rgba(37, 90, 87, 0.08);
+}
+
+.profile-edit-page__aside {
+    text-align: center;
+}
+
+.profile-edit-page__avatar-ring {
+    display: inline-block;
+    padding: 4px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, var(--app-primary), var(--app-navbar-deep));
+    box-shadow: 0 8px 24px rgba(37, 90, 87, 0.22);
+}
+
+.profile-edit-page__avatar-preview {
+    display: block;
+    width: clamp(120px, 22vw, 160px);
+    height: clamp(120px, 22vw, 160px);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+}
+
+.profile-edit-field {
+    margin-bottom: 1.1rem;
+}
+
+.profile-edit-field__label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--app-primary);
+    margin-bottom: 0.35rem;
+}
+
+.profile-edit-field__input {
+    border-radius: 12px !important;
+    border: 1px solid rgba(37, 90, 87, 0.15) !important;
+    padding: 0.55rem 0.85rem !important;
+}
+
+.profile-edit-field__input:focus {
+    border-color: var(--app-primary) !important;
+    box-shadow: 0 0 0 3px rgba(37, 90, 87, 0.12) !important;
+}
+
+.profile-edit-page__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.profile-edit-page__submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.5rem;
+    border-radius: 14px;
+    font-weight: 700;
+    border: none;
+    background: linear-gradient(135deg, var(--app-primary) 0%, var(--app-navbar-deep) 100%);
+    color: #fff !important;
+    box-shadow: 0 8px 22px rgba(37, 90, 87, 0.25);
+}
+
+.profile-edit-page__submit:hover {
+    color: #fff !important;
+    filter: brightness(1.05);
+}
+
+.profile-edit-page__cancel {
+    border-radius: 14px;
+    font-weight: 700;
+    padding: 0.65rem 1.35rem;
+    border: 2px solid rgba(37, 90, 87, 0.25);
+    color: var(--app-navbar-deep) !important;
+    background: #fff !important;
+}
+
+.profile-edit-page__cancel:hover {
+    background: rgba(37, 90, 87, 0.06) !important;
+    color: var(--app-navbar-deep) !important;
+}
+
+@media (max-width: 767px) {
+    .profile-edit-page__layout {
+        grid-template-columns: 1fr;
+    }
+}
