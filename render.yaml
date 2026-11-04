@@ -1,0 +1,9 @@
+(
+echo services:
+echo   - type: web
+echo     name: graduation-project
+echo     runtime: php
+echo     plan: free
+echo     buildCommand: composer install --no-dev ^&^& npm install ^&^& npm run build
+echo     startCommand: php artisan serve --host 0.0.0.0 --port $PORT
+) > render.yaml
