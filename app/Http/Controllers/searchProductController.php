@@ -4,45 +4,77 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\emergencyRequest;
-
 use Illuminate\Http\Request;
 
 class searchProductController extends Controller
 {
     public function index(Request $request)
     {
+        $search = trim($request->input('search', ''));
+        $category = $request->input('category', 'الكل');
+        $sort = $request->input('sort', 'latest');
 
-        $searchElement = explode(' ', $request->input('search'));
+        // Query for Books / Products
+        $productQuery = Product::with('user');
 
-        // البحث عن المنتجات
-        $productQuery = Product::query();
-
-        if ($request->has('search')) {
-            $productQuery->where(function ($query) use ($searchElement) {
-                foreach ($searchElement as $element) {
-                    $query->orWhere('name', 'like', '%' . $element . '%')
-                        ->orWhere('description', 'like', '%' . $element . '%');
+        // Search filter
+        if (!empty($search)) {
+            $terms = array_filter(explode(' ', $search));
+            $productQuery->where(function ($query) use ($terms) {
+                foreach ($terms as $term) {
+                    $query->orWhere('name', 'like', '%' . $term . '%')
+                          ->orWhere('description', 'like', '%' . $term . '%')
+                          ->orWhere('location', 'like', '%' . $term . '%');
                 }
             });
+        }
+
+        // Category filter
+        if ($category !== 'الكل' && !empty($category)) {
+            $productQuery->where('category', $category);
+        }
+
+        // Sorting
+        if ($sort === 'oldest') {
+            $productQuery->orderBy('created_at', 'asc');
+        } else {
+            $productQuery->orderBy('created_at', 'desc');
         }
 
         $products = $productQuery->get();
 
-        // البحث عن الطلبات الطارئة
-        $emergencyQuery = emergencyRequest::query();
-
-        if ($request->has('search')) {
-            $emergencyQuery->where(function ($query) use ($searchElement) {
-                foreach ($searchElement as $element) {
-                    $query->orWhere('type', 'like', '%' . $element . '%')
-                        ->orWhere('description', 'like', '%' . $element . '%')
-                        ->orWhere('location', 'like', '%' . $element . '%');
+        // Urgent requests query (only if searching or when specifically requested)
+        $emergencyQuery = emergencyRequest::with('user');
+        if (!empty($search)) {
+            $terms = array_filter(explode(' ', $search));
+            $emergencyQuery->where(function ($query) use ($terms) {
+                foreach ($terms as $term) {
+                    $query->orWhere('description', 'like', '%' . $term . '%')
+                          ->orWhere('location', 'like', '%' . $term . '%');
                 }
             });
+            $emergencyRequest = $emergencyQuery->orderBy('created_at', 'desc')->get();
+        } else {
+            $emergencyRequest = collect();
         }
 
-        $emergencyRequest = $emergencyQuery->get();
+        // Predefined Categories matching Figma
+        $categories = [
+            'الكل' => 'الكل',
+            'التقنية' => 'التقنية',
+            'التنمية' => 'التنمية',
+            'التصميم' => 'التصميم',
+            'سلايدات جامعية' => 'سلايدات جامعية',
+            'عام' => 'عام',
+        ];
 
-        return view('searchProducts.index', compact('products', 'emergencyRequest'));
+        return view('searchProducts.index', compact(
+            'products',
+            'emergencyRequest',
+            'search',
+            'category',
+            'sort',
+            'categories'
+        ));
     }
 }

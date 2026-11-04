@@ -14,15 +14,15 @@ class PagesController extends Controller
      */
     public function index()
     {
-        if (Auth::check()) {
-            return redirect()->route('homePage');
+        try {
+            $latestProducts = Product::query()->orderBy('created_at', 'desc')->limit(4)->get();
+            $latestRequests = emergencyRequest::query()->orderBy('created_at', 'desc')->limit(4)->get();
+        } catch (\Throwable $e) {
+            $latestProducts = collect();
+            $latestRequests = collect();
         }
 
-        return view('index', [
-            'fillViewportHero' => true,
-            'hideNavbar' => true,
-            'hideFooter' => true,
-        ]);
+        return view('homePage', compact('latestProducts', 'latestRequests'));
     }
 
     /**

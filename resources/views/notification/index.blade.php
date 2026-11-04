@@ -1,67 +1,101 @@
 @extends('layouts.app')
-@section( 'title', 'الاشعارات')
+
+@section('title', 'مركز الإشعارات — ' . config('app.name'))
 
 @section('content')
-<div class="main-content container_h2">
-    <div class="header-message">
-        <h2>الإشعارات <i class="fas fa-bell"></i></h2>
-        <div class="description text-center">
-            <p>اطلع على آخر الإشعارات حول الطلبات والأنشطة الجديدة.</p>
-        </div>
-    </div>
+<div class="notifications-page-wrap position-relative">
+    <!-- Ambient Glows & Grid -->
+    <div class="glow glow--one" aria-hidden="true"></div>
+    <div class="glow glow--two" aria-hidden="true"></div>
+    <div class="grid-bg" aria-hidden="true"></div>
 
-    <!-- رسالة تنبيه بحذف الطلب -->
-    @if(session('error'))
-    <div id="notification-alert" class="alert text-center mt-3" role="alert"
-        style="background-color: #f8d7da; color: #721c24; border: 1px solid #dc3545; padding: 15px; border-radius: 8px; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
-        <i class="fas fa-exclamation-triangle" style="color: #dc3545; font-size: 1.3rem; margin-right: 8px;"></i>
-        عذرًا، الطلب المرتبط بهذا الإشعار قد تم حذفه.
-    </div>
-    @endif
-
-    @if(session()->has('success'))
-    <div class="edit_done">
-        <h4>
-            {{ session()->get('success') }}
-            <i class="fas fa-check-circle"></i>
-        </h4>
-    </div>
-    @endif
-
-    @foreach(auth()->user()->notifications as $notification)
-    <!-- إشعارات الطلبات الطارئة -->
-    <div class="list-group mt-4">
-        <div class="list-group-item d-flex justify-content-between align-items-center">
+    <div class="container-ofuq position-relative py-5" style="z-index: 5;">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-5 pb-3 border-bottom" style="border-color: var(--border) !important;">
             <div>
-                <h5 class="mb-1">{{ $notification->data['title'] }}</h5>
-                <p class="mb-1">{{ $notification->data['description'] }}</p>
-                <small class="text-muted">تاريخ الإشعار: 2025-01-25 10:30</small>
+                <div class="platform-pill mb-2">
+                    <i class="fas fa-bell text-lavender"></i>
+                    <span>التنبيهات المباشرة</span>
+                </div>
+                <h1 class="text-white fw-extrabold m-0" style="font-size: clamp(28px, 3.5vw, 40px);">
+                    مركز <span class="gradient-text">الإشعارات</span>
+                </h1>
+                <p class="text-muted small mt-1 mb-0">تابع كل المستجدات على كتبك، النداءات التي شاركت بها، وردود المجتمع.</p>
             </div>
-            <div>
-                <a href="{{ route('notification.view', ['notificationId' => $notification->id]) }}" class="btn btn-primary btn-sm me-2">عرض الطلب</a>
-                <form action="{{ route('notification.destroy', $notification->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm">
-                        <i class="fas fa-trash"></i> حذف
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-    @endforeach
 
-    @if(auth()->user()->notifications->isNotEmpty())
-    <!-- زر حذف الكل -->
-    <div class="text-center mt-4">
-        <form action="{{ route('notifications.clear') }}" method="POST" style="display: inline;">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger btn-lg">
-                <i class="fas fa-trash-alt"></i> حذف الكل
-            </button>
-        </form>
+            @if(auth()->user()->notifications->isNotEmpty())
+                <div>
+                    <form action="{{ route('notifications.clear') }}" method="POST" onsubmit="return confirm('هل تريد مسح جميع الإشعارات؟');" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="button button--ghost text-danger">
+                            <i class="fas fa-trash-alt"></i>
+                            <span>مسح جميع الإشعارات</span>
+                        </button>
+                    </form>
+                </div>
+            @endif
+        </div>
+
+        @if(session('error'))
+            <div class="alert alert-danger d-flex align-items-center gap-2 mb-4" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; border-radius: 14px;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>{{ session('error') }}</span>
+            </div>
+        @endif
+
+        @if(session()->has('success'))
+            <div class="alert alert-success d-flex align-items-center gap-2 mb-4" style="background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.3); color: #86efac; border-radius: 14px;">
+                <i class="fas fa-check-circle"></i>
+                <span>{{ session()->get('success') }}</span>
+            </div>
+        @endif
+
+        @if(auth()->user()->notifications->isEmpty())
+            <div class="glass-card text-center py-5 mx-auto" style="max-width: 600px; border-radius: 24px;">
+                <i class="fas fa-bell-slash fa-4x text-muted mb-3"></i>
+                <h4 class="text-white fw-bold mb-2">لا توجد إشعارات جديدة</h4>
+                <p class="text-muted small mb-0">ستصلك تنبيهات فورية عند وجود تفاعل مع كتبك أو نداءاتك العاجلة.</p>
+            </div>
+        @else
+            <div class="d-flex flex-column gap-3">
+                @foreach(auth()->user()->notifications as $notification)
+                    <div class="glass-card p-4 d-flex flex-wrap justify-content-between align-items-center gap-3" style="border-radius: 18px; border: 1px solid var(--border-hover);">
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="p-3 rounded-circle mt-1" style="background: rgba(98, 70, 217, 0.2); color: var(--lavender);">
+                                <i class="fas fa-bell fa-lg"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-white fw-bold mb-1 fs-6">
+                                    {{ $notification->data['title'] ?? 'إشعار جديد' }}
+                                </h5>
+                                <p class="text-muted small mb-2 lh-base">
+                                    {{ $notification->data['description'] ?? '' }}
+                                </p>
+                                <span class="text-muted" style="font-size: 11px;">
+                                    <i class="far fa-clock me-1"></i>
+                                    {{ $notification->created_at ? $notification->created_at->diffForHumans() : '' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-2">
+                            <a href="{{ route('notification.view', ['notificationId' => $notification->id]) }}" class="button button--primary" style="padding: 7px 16px; font-size: 11px;">
+                                <span>عرض الطلب</span>
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+
+                            <form action="{{ route('notification.destroy', $notification->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="button button--ghost text-muted p-2" title="حذف هذا الإشعار">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
     </div>
-    @endif
 </div>
 @endsection

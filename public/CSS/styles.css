@@ -2269,26 +2269,25 @@ footer.app-footer {
     filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.35));
 }
 
-/* صفحة الترحيل: الهيرو يملأ الشاشة تحت الهيدر — بدون تمرير للصفحة */
+/* صفحة الترحيل: انسيابية طبيعية وقابلة للتمرير */
 html.landing-viewport-lock {
-    height: 100dvh;
-    max-height: 100dvh;
-    overflow: hidden;
+    height: auto;
+    max-height: none;
+    overflow-y: auto;
 }
 
 html.landing-viewport-lock body.page-landing-index {
-    height: 100%;
-    max-height: 100%;
+    height: auto;
+    max-height: none;
     margin: 0;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 body.page-landing-index #app {
-    height: 100%;
-    max-height: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    height: auto;
+    max-height: none;
+    display: block;
+    overflow: visible;
 }
 
 body.page-landing-index .navbar {
@@ -2300,19 +2299,17 @@ body.page-landing-index footer.app-footer {
 }
 
 body.page-landing-index main.content {
-    flex: 1;
-    min-height: 0;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    flex: none;
+    min-height: auto;
+    overflow: visible;
+    display: block;
 }
 
 body.page-landing-index .home-hero-section {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    flex: none;
+    min-height: auto;
+    display: block;
+    overflow: visible;
 }
 
 body.page-landing-index .hero-modern {

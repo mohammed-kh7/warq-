@@ -21,6 +21,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'location',
+        'image',
+        'is_admin',
+        'is_moderator',
+        'is_author',
+        'is_teacher',
+        'bio',
     ];
 
     /**
@@ -52,5 +60,39 @@ class User extends Authenticatable
     public function emergencyRequests()
     {
         return $this->hasMany(emergencyRequest::class);
+    }
+
+    public function userBooks()
+    {
+        return $this->hasMany(UserBook::class);
+    }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(Product::class, 'favorites');
+    }
+
+    public function roleApplications()
+    {
+        return $this->hasMany(RoleApplication::class);
+    }
+
+    public function communityPosts()
+    {
+        return $this->hasMany(CommunityPost::class);
+    }
+
+    public function contentRequests()
+    {
+        return $this->hasMany(ContentRequest::class);
+    }
+
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            $user->create([
+                'status' => 'completed',
+            ]);
+        });
     }
 }

@@ -1,197 +1,283 @@
 @extends('layouts.app')
-@section('title', 'الصفحة الرئيسية')
+
+@section('title', 'الصفحة الرئيسية — ' . config('app.name'))
 
 @section('content')
-<div class="main-content">
-    <section class="about-app-section" id="about">
-        <div class="auto-container">
-            <div class="row clearfix align-items-center gy-4">
-                <div class="title-column col-lg-6 col-md-12 col-sm-12 wow fadeInRight">
-                    <div class="inner-column wow fadeInLeft animated" style="visibility: visible; animation-name: fadeInLeft;">
-                        <div class="sec-title-two">
-                            <div class="title">عن المنصة</div>
-                            <h2>منصة {{ config('app.name') }}</h2>
-                            <div class="text">
-                                منصة مجتمعية تهدف إلى تعزيز الثقافة ونشر المعرفة بين القراء من خلال تسهيل تبادل وبيع الكتب بمختلف أنواعها، سواء كانت أدبية، علمية، أو أكاديمية. كما توفر المنصة مساحة مخصصة للنداءات العاجلة، مثل طلب المراجع الدراسية أو الكتب النادرة التي يحتاجها الطلاب والباحثون بشكل طارئ، مما يساعد الأفراد الذين يواجهون صعوبة في العثور على مصادرهم العلمية.
-                                <br><br>
-                                من خلال هذه المبادرة، نسعى إلى بناء شبكة من التضامن المعرفي، حيث يمكن للأفراد عرض كتبهم للبيع أو المقايضة بسهولة، مع ضمان وصول الكتاب للشخص المناسب في الوقت المناسب. كما يهدف المشروع إلى تعزيز القراءة الجماعية وزيادة الوعي بأهمية تدوير المعرفة في المجتمع المحلي لتحقيق الاستدامة الثقافية والتعليمية.
-                                <br><br>
-                                انضموا إلينا اليوم وكونوا جزءًا من هذا المشروع الحيوي لدعم القراء وإحداث تغيير حقيقي في رحلة التعلم للآخرين.
-                                <i class="fas fa-star text-warning animate-icon"></i>
+<!-- 1. Hero Section (1:1 Figma) -->
+@include('partials.hero-home')
+
+<div class="homepage-wrap position-relative">
+    <!-- Ambient Glows & Grid -->
+    <div class="glow glow--one" aria-hidden="true"></div>
+    <div class="glow glow--two" aria-hidden="true"></div>
+    <div class="grid-bg" aria-hidden="true"></div>
+
+    <div class="container-ofuq position-relative pt-4 pb-5" style="z-index: 5;">
+
+        <!-- About Section -->
+        <section class="mb-5 pb-4" id="about">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7">
+                    <div class="platform-pill mb-3">
+                        <i class="fas fa-feather-alt text-lavender"></i>
+                        <span>عن المنصة والرسالة</span>
+                    </div>
+                    <h1 class="text-white fw-extrabold mb-3" style="font-size: clamp(32px, 4vw, 48px); line-height: 1.25;">
+                        منظومة <span class="gradient-text">{{ config('app.name') }}</span>
+                    </h1>
+                    <p class="text-muted fs-6 lh-lg mb-4">
+                        منصة مجتمعية متكاملة تهدف إلى تعزيز الثقافة ونشر المعرفة بين القراء من خلال تسهيل تبادل، تبرع، وبيع الكتب بمختلف أنواعها—أدبية، علمية، أو سلايدات ومذكرات أكاديمية.
+                    </p>
+                    <p class="text-muted fs-6 lh-lg mb-4">
+                        كما توفر المنصة مساحة مخصصة للنداءات العاجلة للبحث عن المراجع الدراسية النادرة التي يحتاجها الطلاب والباحثون بشكل طارئ، لتصل المعرفة إلى من يحتاجها في الوقت المناسب.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="{{ route('searchProducts.index') }}" class="button button--primary">
+                            <span>تصفح المكتبة</span>
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                        <a href="{{ auth()->check() ? route('products.create') : route('login') }}" class="button button--secondary">
+                            <i class="fas fa-plus"></i>
+                            <span>تبرع بكتاب</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="glass-card p-4 text-center position-relative overflow-hidden" style="border-radius: 28px; background: radial-gradient(circle at 50% 0%, rgba(98, 70, 217, 0.2), rgba(17, 20, 33, 0.85)); border: 1px solid var(--border-hover);">
+                        <div class="my-4">
+                            <img src="{{ asset('images/waraq-logo.png') }}" alt="{{ config('app.name') }}" style="max-height: 120px; filter: drop-shadow(0 0 25px rgba(98, 70, 217, 0.45));">
+                        </div>
+                        <h4 class="text-white fw-bold mb-2">مساحتك الهادئة للأفكار</h4>
+                        <p class="text-muted small mb-0">تبادل، تبرع، تضامن معرفي، ومذكرات دراسية لجميع الجامعات.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Action CTAs -->
+        <section class="mb-5 pb-3">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="glass-card p-4 h-100 d-flex flex-column justify-content-between" style="border-radius: 24px; border: 1px solid var(--border-hover); background: linear-gradient(135deg, rgba(98, 70, 217, 0.12), rgba(15, 17, 28, 0.7));">
+                        <div>
+                            <div class="d-inline-flex p-3 rounded-4 mb-3" style="background: rgba(98, 70, 217, 0.25); color: var(--lavender);">
+                                <i class="fas fa-book-reader fa-2x"></i>
+                            </div>
+                            <h3 class="text-white fw-bold fs-4 mb-2">تبرع بمعرفة أو أضف كتاباً</h3>
+                            <p class="text-muted small lh-base mb-4">شارِك كتبك ومذكراتك الفائضة لتصل لمن يستحقها أو ساهم في إثراء المحتوى الأكاديمي.</p>
+                        </div>
+                        <div>
+                            <a href="{{ auth()->check() ? route('products.create') : route('login') }}" class="button button--primary w-100 justify-content-center">
+                                <span>أضف كتاباً أو مرجعاً الآن</span>
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="glass-card p-4 h-100 d-flex flex-column justify-content-between" style="border-radius: 24px; border: 1px solid rgba(239, 68, 68, 0.3); background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(15, 17, 28, 0.7));">
+                        <div>
+                            <div class="d-inline-flex p-3 rounded-4 mb-3" style="background: rgba(239, 68, 68, 0.25); color: #f87171;">
+                                <i class="fas fa-bolt fa-2x"></i>
+                            </div>
+                            <h3 class="text-white fw-bold fs-4 mb-2">نداء أو طلب كتاب عاجل</h3>
+                            <p class="text-muted small lh-base mb-4">هل تبحث عن كتاب نادر أو مرجع دراسي طارئ للاختبارات؟ انشر نداءك ليصل لمجتمع القراء.</p>
+                        </div>
+                        <div>
+                            <a href="{{ auth()->check() ? route('emergency.create') : route('login') }}" class="button button--secondary w-100 justify-content-center" style="border-color: rgba(239, 68, 68, 0.4); color: #fca5a5;">
+                                <span>إرسال طلب طارئ</span>
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fast Search Bar -->
+        <section class="mb-5 pb-2 text-center">
+            <div class="search-box mx-auto" style="max-width: 680px;">
+                <i class="fas fa-search text-muted me-2"></i>
+                <form action="{{ route('searchProducts.index') }}" method="GET" class="d-flex w-100 align-items-center">
+                    <input type="text" name="search" placeholder="ابحث بالعنوان، الكاتب، أو الموضوع..." class="w-100" autocomplete="off">
+                    <button type="submit" class="button button--primary ms-2" style="padding: 10px 24px; min-height: 44px;">
+                        <span>بحث</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Latest Books -->
+        <section class="mb-5 pb-5">
+            <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+                <div>
+                    <div class="platform-pill mb-2">
+                        <i class="fas fa-sparkles text-lavender"></i>
+                        <span>جديد على المنصة</span>
+                    </div>
+                    <h2 class="text-white fw-bold m-0" style="font-size: 28px;">الكتب والمراجع المضافة حديثاً</h2>
+                </div>
+                <a href="{{ route('searchProducts.index') }}" class="text-link mt-2 mt-sm-0">
+                    <span>استكشف جميع الكتب</span>
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+
+            @if($latestProducts->isEmpty())
+                <div class="text-center py-5 glass-card" style="border-radius: 20px;">
+                    <i class="fas fa-book-open fa-3x text-muted mb-3"></i>
+                    <h5 class="text-white">لا توجد كتب مضافة حديثاً بعد</h5>
+                    <p class="text-muted small">كن أول من يضيف كتاباً للمكتبة الرقمية</p>
+                    <a href="{{ auth()->check() ? route('products.create') : route('login') }}" class="button button--primary mt-2">
+                        إضافة كتاب الآن
+                    </a>
+                </div>
+            @else
+                <div class="books-3d-grid">
+                    @foreach($latestProducts as $product)
+                        <article class="book-card-3d">
+                            <a href="{{ url('/products/' . $product->slug) }}" class="book-card-cover-wrap">
+                                <span class="book-category-tag">
+                                    {{ $product->category ?? 'عام' }}
+                                </span>
+                                @if($product->image_path)
+                                    <img src="{{ asset('images/' . $product->image_path) }}" alt="{{ $product->name }}" class="book-card-cover-img" loading="lazy">
+                                @else
+                                    <div class="text-center p-3 text-muted">
+                                        <i class="fas fa-book fa-3x text-lavender opacity-50 mb-2"></i>
+                                        <div class="small">{{ $product->name }}</div>
+                                    </div>
+                                @endif
+                            </a>
+
+                            <div class="book-card-content">
+                                <h3 class="book-card-title">
+                                    <a href="{{ url('/products/' . $product->slug) }}">
+                                        {{ $product->name }}
+                                    </a>
+                                </h3>
+                                <p class="book-card-desc">
+                                    {{ \Illuminate\Support\Str::limit($product->description, 85) }}
+                                </p>
+
+                                <div class="book-card-footer">
+                                    <div class="book-author-meta">
+                                        <i class="fas fa-user-circle"></i>
+                                        <span>{{ $product->user->name ?? 'مؤلف غير مسجل' }}</span>
+                                    </div>
+                                    <a href="{{ url('/products/' . $product->slug) }}" class="book-card-btn">
+                                        التفاصيل
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+            @endif
+        </section>
+
+        <!-- Urgent Appeals Section -->
+        <section class="mb-5 pb-5">
+            <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+                <div>
+                    <div class="platform-pill mb-2" style="background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); color: #fca5a5;">
+                        <i class="fas fa-signal"></i>
+                        <span>تضامن مجتمعي</span>
+                    </div>
+                    <h2 class="text-white fw-bold m-0" style="font-size: 28px;">النداءات والطلبات العاجلة</h2>
+                </div>
+                <a href="{{ route('emergancyRequest.index') }}" class="text-link mt-2 mt-sm-0" style="color: #fca5a5;">
+                    <span>عرض كل النداءات</span>
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+
+            @if($latestRequests->isEmpty())
+                <div class="text-center py-5 glass-card" style="border-radius: 20px;">
+                    <i class="fas fa-hands-helping fa-3x text-muted mb-3"></i>
+                    <h5 class="text-white">لا توجد نداءات عاجلة مفتوحة حالياً</h5>
+                    <p class="text-muted small">كل الطلبات تم الاستجابة لها بحمد الله</p>
+                </div>
+            @else
+                <div class="row g-4">
+                    @foreach($latestRequests as $req)
+                        <div class="col-md-4">
+                            <div class="glass-card p-4 h-100 d-flex flex-column justify-content-between" style="border-radius: 20px; border: 1px solid rgba(239, 68, 68, 0.25);">
+                                <div>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="badge rounded-pill bg-danger px-3 py-2">طلب عاجل</span>
+                                        @if($req->location)
+                                            <span class="text-muted small"><i class="fas fa-map-marker-alt text-danger me-1"></i> {{ $req->location }}</span>
+                                        @endif
+                                    </div>
+                                    <p class="text-white fs-6 lh-base mb-4">{{ \Illuminate\Support\Str::limit($req->description, 100) }}</p>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center pt-3 border-top" style="border-color: var(--border) !important;">
+                                    @php
+                                        $wa = preg_replace('/\D+/', '', (string) $req->whatsapp);
+                                        if (strlen($wa) > 0 && str_starts_with($wa, '0')) $wa = '970' . substr($wa, 1);
+                                    @endphp
+                                    @if($wa)
+                                        <a href="https://wa.me/{{ $wa }}" target="_blank" class="button button--primary" style="padding: 7px 16px; font-size: 11px; background: #25D366; border-color: #25D366;">
+                                            <i class="fab fa-whatsapp"></i>
+                                            <span>تواصل واتساب</span>
+                                        </a>
+                                    @else
+                                        <span></span>
+                                    @endif
+                                    <a href="{{ url('/emergancyRequest/' . $req->id) }}" class="text-link">
+                                        <span>التفاصيل</span>
+                                        <i class="fas fa-arrow-left"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
-                <div class="image-column col-lg-6 col-md-12 col-sm-12 wow fadeInLeft">
-                    <div class="inner-column about-platform-visual">
-                        <figure class="about-platform-visual__frame">
-                            <img src="{{ asset('images/about-platform-desk.png') }}" class="about-platform-visual__img" alt="مشهد مكتب منظم مع كتب ولابتوب يعكس طابع المنصة الثقافي" loading="lazy" decoding="async">
-                        </figure>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            @endif
+        </section>
 
-    @if(Auth::check())
-    <section class="home-cta container my-5 px-3" aria-labelledby="home-cta-heading">
-        <div class="home-cta__shell">
-            <header class="home-cta__header text-center">
-                <p class="home-cta__eyebrow">شارك أو اطلب الدعم</p>
-                <h2 id="home-cta-heading" class="home-cta__title">هل لديك كتاب لمشاركته؟ أو بحاجة لمساعدة عاجلة؟</h2>
-                <p class="home-cta__lead">ساهم في دعم مجتمعك: أضف كتابًا ليستفيد الآخرون، أو قدّم طلبًا عاجلًا عند الحاجة. الخيارات أمامك.</p>
-            </header>
-            <div class="row g-4 home-cta__grid align-items-stretch justify-content-center">
-                <div class="col-lg-5 col-md-6">
-                    <article class="home-cta-card home-cta-card--resources">
-                        <div class="home-cta-card__accent" aria-hidden="true"></div>
-                        <div class="home-cta-card__icon-wrap">
-                            <span class="home-cta-card__icon" aria-hidden="true"><i class="fas fa-book-open"></i></span>
+        <!-- 3 Simple Steps -->
+        <section class="mb-5 py-4">
+            <div class="text-center mb-5">
+                <span class="platform-pill mx-auto mb-2">كيف تعمل المنظومة؟</span>
+                <h2 class="text-white fw-bold">ثلاث خطوات لتجربة معرفية متكاملة</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100 text-center" style="border-radius: 20px;">
+                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 50px; height: 50px; background: rgba(98, 70, 217, 0.2); color: var(--lavender); font-weight: 800; font-size: 20px;">
+                            ١
                         </div>
-                        <h3 class="home-cta-card__heading">إضافة كتاب</h3>
-                        <p class="home-cta-card__text home-cta-card__text--compact">شارك كتبك المتاحة ووصّلها لمن يحتاجها.</p>
-                        <a href="{{ url('/products/create') }}" class="home-cta-card__btn home-cta-card__btn--teal">
-                            <span>أضف كتابًا الآن</span>
-                            <i class="fas fa-arrow-left" aria-hidden="true"></i>
-                        </a>
-                    </article>
-                </div>
-                <div class="col-lg-1 d-none d-lg-flex align-items-stretch justify-content-center py-lg-4">
-                    <div class="home-cta__divider" role="presentation">
-                        <span class="home-cta__or">أو</span>
+                        <h4 class="text-white fw-bold mb-2">أنشئ حسابك الموحد</h4>
+                        <p class="text-muted small lh-base">سجّل بحساب أُفُق الموحد للتنقل بحرية بين مَسار، وَرَق، وصِلة دون الحاجة لتسجيلات متعددة.</p>
                     </div>
                 </div>
-                <div class="col-lg-5 col-md-6">
-                    <article class="home-cta-card home-cta-card--urgent">
-                        <div class="home-cta-card__accent" aria-hidden="true"></div>
-                        <div class="home-cta-card__icon-wrap">
-                            <span class="home-cta-card__icon" aria-hidden="true"><i class="fas fa-bolt"></i></span>
+
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100 text-center" style="border-radius: 20px;">
+                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 50px; height: 50px; background: rgba(98, 70, 217, 0.2); color: var(--lavender); font-weight: 800; font-size: 20px;">
+                            ٢
                         </div>
-                        <h3 class="home-cta-card__heading">نداء أو طلب عاجل</h3>
-                        <p class="home-cta-card__text home-cta-card__text--compact">عند الضرورة، اطلب المساعدة من المجتمع دون تردد.</p>
-                        <a href="{{ url('/emergancyRequest/create') }}" class="home-cta-card__btn home-cta-card__btn--urgent">
-                            <span>أضف طلبك الطارئ</span>
-                            <i class="fas fa-arrow-left" aria-hidden="true"></i>
-                        </a>
-                    </article>
+                        <h4 class="text-white fw-bold mb-2">تصفح واقرأ وشارك</h4>
+                        <p class="text-muted small lh-base">تصفح آلاف الكتب والسلايدات الأكاديمية المنتقاة، واقرأ مباشرة مع المساعد المعرفي الذكي.</p>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    @endif
 
-    <form action="{{ url('/searchProducts') }}" method="get">
-        <div class="search-bar">
-            <input type="text" name="search" value="{{ request('search') }}" placeholder="ابحث هنا...">
-            <i class="fas fa-search"></i>
-        </div>
-    </form>
-
-    <div class="container Resources_addition latest-resources-block px-3" id="latest-resources">
-        <div class="latest-resources-block__inner">
-            <header class="latest-resources-block__head">
-                <p class="latest-resources-block__eyebrow"><i class="fas fa-wand-magic-sparkles ms-1" aria-hidden="true"></i> جديد على المنصة</p>
-                <h2>الكتب المضافة حديثًا!</h2>
-                <p class="latest-resources-block__sub">آخر ما شاركه الأعضاء من كتب ومراجع—تصفّح سريعًا أو انتقل إلى جميع الكتب.</p>
-            </header>
-            <div class="row g-4 latest-resources-block__grid">
-            @forelse($latestProducts as $product)
-            <div class="col-md-4">
-                <div class="card text-center latest-resource-card">
-                    <img src="{{ asset('images/' . $product->image_path) }}" class="card-img-top mx-auto" alt="كتاب">
-                    <div class="card-body">
-                        <h5 class="card-title">اسم الكتاب: {{ $product->name }}</h5>
-                        <p class="card-text">وصف الكتاب: {{ $product->description }}</p>
-                        <a href="{{ url('/products/' . $product->slug) }}" class="btn btn-primary">عرض التفاصيل</a>
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100 text-center" style="border-radius: 20px;">
+                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 50px; height: 50px; background: rgba(98, 70, 217, 0.2); color: var(--lavender); font-weight: 800; font-size: 20px;">
+                            ٣
+                        </div>
+                        <h4 class="text-white fw-bold mb-2">ساند أو اطلب العون</h4>
+                        <p class="text-muted small lh-base">قدّم كتاباً لغيرك بنية التضامن المعرفي، أو انشر نداءً عاجلاً إذا تعثرت في إيجاد مرجع لدراستك.</p>
                     </div>
                 </div>
             </div>
-            @empty
-            <div class="col-12">
-                <div class="latest-resources-empty">
-                    <div class="latest-resources-empty__icon" aria-hidden="true"><i class="fas fa-book-open"></i></div>
-                    <p class="latest-resources-empty__title">لا توجد كتب مضافة حديثًا بعد</p>
-                    <p class="latest-resources-empty__text">عندما يضيف الأعضاء كتبًا ومراجع ستظهر هنا. يمكنك تصفح كل الكتب من الزر أدناه.</p>
-                </div>
-            </div>
-            @endforelse
-            </div>
-            <div class="text-center latest-resources-block__actions">
-                <a href="{{ url('/products') }}" class="custom-btn resources-btn latest-resources-block__cta">عرض جميع الكتب</a>
-            </div>
-        </div>
+        </section>
+
     </div>
-
-    <div class="container urgent-requests Appeals urgent-appeals-block px-3">
-        <div class="urgent-appeals-block__inner">
-            <header class="urgent-appeals-block__head">
-                <p class="urgent-appeals-block__eyebrow"><i class="fas fa-signal ms-1" aria-hidden="true"></i> طلبات بحاجة لمساندة سريعة</p>
-                <h2>النداءات العاجلة المضافة حديثًا</h2>
-                <p class="urgent-appeals-block__sub">نداءات من الأعضاء لكتب أو مراجع أو دعم عاجل—تصفّح المفتوح أو قدّم يد العون.</p>
-            </header>
-            <div class="row g-4 urgent-appeals-block__grid">
-            @forelse($latestRequests as $request)
-            <div class="col-md-4">
-                <div class="card text-center shadow urgent-appeal-card">
-                    <div class="urgent-appeal-card__media">
-                        @include('partials.urgent-request-visual')
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ \Illuminate\Support\Str::limit($request->description, 60) }}</h5>
-                        <p class="card-text small text-muted">انقر لعرض التفاصيل والتواصل</p>
-                        <a href="{{ url('/emergancyRequest/' . $request->id) }}" class="btn urgent-card-cta">عرض التفاصيل</a>
-                    </div>
-                </div>
-            </div>
-            @empty
-            <div class="col-12">
-                <div class="urgent-appeals-empty">
-                    <div class="urgent-appeals-empty__icon" aria-hidden="true"><i class="fas fa-hand-holding-heart"></i></div>
-                    <p class="urgent-appeals-empty__title">لا توجد نداءات عاجلة حديثة</p>
-                    <p class="urgent-appeals-empty__text">عند نشر طلبات جديدة ستظهر هنا. يمكنك متابعة كل النداءات من الزر أدناه.</p>
-                </div>
-            </div>
-            @endforelse
-            </div>
-            <div class="text-center urgent-appeals-block__actions">
-                <a href="{{ url('/emergancyRequest') }}" class="custom-btn urgent-btn urgent-appeals-block__cta">عرض جميع الطلبات العاجلة</a>
-            </div>
-        </div>
-    </div>
-
-    <section class="container platform-steps-block px-3" aria-labelledby="platform-steps-heading">
-        <div class="platform-steps-block__inner">
-            <header class="platform-steps-block__head text-center">
-                <p class="platform-steps-block__eyebrow">كيف تستفيد من المنصة؟</p>
-                <h2 id="platform-steps-heading">ثلاث خطوات بسيطة</h2>
-            </header>
-            <div class="row g-4 justify-content-center platform-steps-block__grid">
-                <div class="col-md-4">
-                    <article class="platform-step-card">
-                        <div class="platform-step-card__num" aria-hidden="true">١</div>
-                        <div class="platform-step-card__icon"><i class="fas fa-user-plus" aria-hidden="true"></i></div>
-                        <h3 class="platform-step-card__title">أنشئ حسابك</h3>
-                        <p class="platform-step-card__text">سجّل بحسابك لتتمكن من إضافة الكتب والمراجع، التعليق، وتقديم أو متابعة النداءات العاجلة.</p>
-                    </article>
-                </div>
-                <div class="col-md-4">
-                    <article class="platform-step-card">
-                        <div class="platform-step-card__num" aria-hidden="true">٢</div>
-                        <div class="platform-step-card__icon"><i class="fas fa-book" aria-hidden="true"></i></div>
-                        <h3 class="platform-step-card__title">شارِك أو تصفّح</h3>
-                        <p class="platform-step-card__text">أضف كتابًا أو موردًا، أو ابحث عما يحتاجه مجتمع القرّاء في غزة.</p>
-                    </article>
-                </div>
-                <div class="col-md-4">
-                    <article class="platform-step-card">
-                        <div class="platform-step-card__num" aria-hidden="true">٣</div>
-                        <div class="platform-step-card__icon"><i class="fas fa-hands-helping" aria-hidden="true"></i></div>
-                        <h3 class="platform-step-card__title">ساعد أو اطلب</h3>
-                        <p class="platform-step-card__text">رُد على نداء عاجل عندما تستطيع، أو انشر طلبك عند الحاجة لمرجع أو كتاب.</p>
-                    </article>
-                </div>
-            </div>
-        </div>
-    </section>
 </div>
 @endsection
